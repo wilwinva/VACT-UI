@@ -5,7 +5,7 @@
  * @project VACT
  * @name vactApp
  * @description
- * # insideApp
+ * # vactApp
  *
  * Main module of the application.
  */
@@ -16,6 +16,7 @@ angular
         'ngResource',
         'ui.router',
         'ngSanitize',
+        'ngWebSocket',
         'ngTouch',
         'ngAria',
         'vactApp.config.constants'
@@ -35,7 +36,8 @@ angular
             $stateProvider
                 .state('home', {
                     url: '/',
-                    template: '<div>Hello World!!!</div>'
+                    template: '<div>Hello World!!!</div>',
+                    controller: 'IguanaCtrl as equipCtrl',
                 });
         }
     ])
