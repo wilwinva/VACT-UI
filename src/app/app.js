@@ -38,7 +38,7 @@ angular
             $stateProvider
                 .state('home', {
                     url: '/',
-                    templateUrl: 'app/templates/equipment.tpl.html',
+                    templateUrl: 'app/components/equipment.tpl.html',
                     controller: 'EquipmentCtrl as equipCtrl',
                     resolve : {
                       equipmentData: ['vactApiModel','$q', function (vactApiModel, $q) {

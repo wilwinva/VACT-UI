@@ -1,6 +1,6 @@
 'use strict';
 
-/*module.exports = function (request) {
+module.exports = function (request) {
     console.log('Loaded Iguana Server mock');
     var connection = request.accept(null, request.origin);
 
@@ -21,4 +21,4 @@
     connection.on('close', function (connection) {
         console.log('connection closed');
     });
-};*/
+};

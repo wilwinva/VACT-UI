@@ -12,10 +12,14 @@ angular.module('vactApp')
       return {
         restrict: 'E',
         scope:{
-          vactObject: '='
+          source: '='
         },
         //replace: true,
-        templateUrl: 'app/components/vactButton/vactButton.tpl.html'//,
+         // transclude: true,
+        templateUrl: 'app/components/vactButton/vactButton.tpl.html', //<ng-transclude></ng-transclude>',//
         //controller: 'AlertsCtrl as alertsCtrl'
+          link : function () {
+              console.log('In Directive ****************');
+          }
       };
     });
