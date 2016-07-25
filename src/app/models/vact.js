@@ -10,11 +10,6 @@
  * Web Socket Service
  */
 angular.module('vactApp')
-    .controller('IguanaCtrl', ['iguanaServerModel', function (iguanaServerModel) {
-        var self = this;
-        console.log('In iguanaServerModel Controller');
-        self.equipment = iguanaServerModel;
-    }])
     .factory('iguanaServerModel',['$window', function IguanaServerModel($window) {
         var collection = [];
         $window.WebSocket = $window.WebSocket || $window.MozWebSocket;

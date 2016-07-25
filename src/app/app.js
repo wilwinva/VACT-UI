@@ -19,7 +19,9 @@ angular
         'ngWebSocket',
         'ngTouch',
         'ngAria',
-        'vactApp.config.constants'
+        'vactApp.config.constants',
+        'vactApp.mocks',
+        'vactApp.models.vactApi'
     ])
     .run(['$rootScope', '$timeout', '$window', '$location', '$state', '$stateParams',
         function ($rootScope, $timeout, $window, $location, $state) {
@@ -36,8 +38,8 @@ angular
             $stateProvider
                 .state('home', {
                     url: '/',
-                    template: '<div>Hello World!!!</div>',
-                    controller: 'IguanaCtrl as equipCtrl',
+                    templateUrl: 'app/templates/equipment.tpl.html',
+                    controller: 'EquipmentCtrl as equipCtrl'
                 });
         }
     ])
