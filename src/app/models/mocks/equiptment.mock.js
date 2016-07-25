@@ -1,10 +1,10 @@
 'use strict';
 /**
  * @ngdoc function
- * @name insideApp.module:supportTeams
+ * @name vactApp.module:supportTeams
  * @description
  * # supportTeams
- * mockData for supportTeams of the insideApp
+ * mockData for supportTeams of the vactApp
  */
 angular.module('vactApp.mocks')
     .constant('EQUIPMENT_MOCK',
