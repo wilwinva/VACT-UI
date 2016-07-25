@@ -31,35 +31,35 @@ angular.module('vactApp.mocks')
               "name": "desktop1"
             },
             {
-              "type": "document camera",
-              "name": "documentCamer1"
+              "type": "document_camera",
+              "name": "documentCamera1"
             },
             {
-              "type": "document camera",
-              "name": "documentCamer2"
+              "type": "document_camera",
+              "name": "documentCamera2"
             },
             {
-              "type": "video camera",
+              "type": "video_camera",
               "name": "videoCamera1"
             },
             {
-              "type": "video camera",
+              "type": "video_camera",
               "name": "video camera 2"
             }
 
           ],
           "target": [
             {
-              "type": "lcd monitor",
-              "name": "lcd monitor 1"
+              "type": "lcd",
+              "name": "lcd 1"
             },
             {
-              "type": "lcd monitor",
-              "name": "lcd monitor 2"
+              "type": "lcd",
+              "name": "lcd 2"
             },
             {
-              "type": "lcd monitor",
-              "name": "lcd monitor 3"
+              "type": "plasma",
+              "name": "plasma 1"
             },
             {
               "type": "projector",

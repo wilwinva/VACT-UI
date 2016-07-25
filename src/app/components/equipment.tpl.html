@@ -9,7 +9,10 @@
 </div>
 <div class="col-sm-6" id="targetEquipment" ng-init="targets = equipCtrl.room_properties.target">
   <h4>Target Equipment</h4>
-<!--
-  targets:{{targets}}
--->
+  <!--targets:{{targets}}-->
+  <ul>
+    <li ng-repeat="target in targets">
+      <vact-button source="target"></vact-button>
+    </li>
+  </ul>
 </div>
