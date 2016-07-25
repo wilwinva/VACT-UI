@@ -13,6 +13,7 @@ angular.module('vactApp.mocks', [])
         {
           equipment: EQUIPMENT_MOCK
         };
+        console.log("mockData: "+mockData.equipment.source[0].type);
         return mockData;
       }])
 ;

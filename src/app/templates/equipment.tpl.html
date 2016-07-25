@@ -1,7 +1,16 @@
-<div class="col-sm-6" id="sourceEquipment">
+<div class="col-sm-6" id="sourceEquipment" ng-init="sources = equipCtrl.room_properties.source">
   <h4>Source Equipment</h4>
+<!--  sources:{{sources}}-->
+  <ul>
+    <li ng-repeat="source in sources">
+      <!--{{source.name}}-->
+      <!--<vact-button vact-object="source"></vact-button>-->
+    </li>
+  </ul>
 </div>
-<div class="col-sm-6" id="targetEquipment">
+<div class="col-sm-6" id="targetEquipment" ng-init="targets = equipCtrl.room_properties.target">
   <h4>Target Equipment</h4>
-
+<!--
+  targets:{{targets}}
+-->
 </div>

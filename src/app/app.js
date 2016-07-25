@@ -39,7 +39,21 @@ angular
                 .state('home', {
                     url: '/',
                     templateUrl: 'app/templates/equipment.tpl.html',
-                    controller: 'EquipmentCtrl as equipCtrl'
+                    controller: 'EquipmentCtrl as equipCtrl',
+                    resolve : {
+                      equipmentData: ['vactApiModel','$q', function (vactApiModel, $q) {
+                        console.log('in resolve');
+                        var defer = $q.defer();
+                        defer.resolve(vactApiModel.fetch('equipment'));
+
+                        return defer.promise.then(function (data) {
+                              return data;
+                            },
+                            function () {
+//                              return DEFAULT_PREFERENCE_DATA;
+                            });
+                      }]
+                    }
                 });
         }
     ])

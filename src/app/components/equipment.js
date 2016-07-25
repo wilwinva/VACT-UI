@@ -10,13 +10,15 @@
  * Web Socket Service
  */
 angular.module('vactApp')
-  .controller('EquipmentCtrl', ['iguanaServerModel', 'vactApiModel', function (iguanaServerModel, vactApiModel) {
+  .controller('EquipmentCtrl', ['iguanaServerModel', 'equipmentData', function (iguanaServerModel, equipmentData) {
     var self = this;
     console.log('In Equipment Controller');
     console.log('load john doe');
     self.name = iguanaServerModel;
     console.log('load Equipment');
 
-    self.equipment = vactApiModel.fetch();
+    self.room_properties = equipmentData;
+    console.log('loaded Equipment' + self.room_properties);
+
   }])
 ;
