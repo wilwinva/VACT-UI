@@ -20,8 +20,7 @@ angular
         'ngTouch',
         'ngAria',
         'vactApp.config.constants',
-        'vactApp.mocks',
-        'vactApp.models.vactApi',
+        'vactApp.models',
         'vactApp.hardwareCommands'
     ])
     .run(['$rootScope', function ($rootScope) {
@@ -38,13 +37,13 @@ angular
             $stateProvider
                 .state('home', {
                     url: '/',
-                    templateUrl: 'app/components/equipment.tpl.html',
-                    controller: 'EquipmentCtrl as equipCtrl',
+                    templateUrl: 'app/components/roomConfiguration.tpl.html',
+                    controller: 'RoomConfigurationCtrl as roomCtrl',
                     resolve : {
                       equipmentData: ['vactApiModel','$q', function (vactApiModel, $q) {
                         console.log('in resolve');
                         var defer = $q.defer();
-                        defer.resolve(vactApiModel.fetch('equipment'));
+                        defer.resolve(vactApiModel.fetch('roomConfiguration'));
 
                         return defer.promise.then(function (data) {
                               return data;

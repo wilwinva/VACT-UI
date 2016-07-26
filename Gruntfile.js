@@ -238,7 +238,7 @@ module.exports = function (grunt) {
             websocket: {
                 options: {
                     port: 1337,
-                    handler: '<%= config.src %>/app/models/mocks/iguanaServer.mock.js'
+                    handler: '<%= config.src %>/iguanaServer.mock.js'
                 },
                 target: {}
             },

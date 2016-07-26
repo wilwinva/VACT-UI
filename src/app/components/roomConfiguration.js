@@ -10,7 +10,7 @@
  * Web Socket Service
  */
 angular.module('vactApp')
-    .controller('EquipmentCtrl', ['iguanaServerModel', 'equipmentData', function (iguanaServerModel, equipmentData) {
+    .controller('RoomConfigurationCtrl', ['iguanaServerModel', 'equipmentData', function (iguanaServerModel, equipmentData) {
         var self = this;
         //console.log('In Equipment Controller');
         //console.log('load john doe');
