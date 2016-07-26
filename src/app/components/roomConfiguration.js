@@ -10,9 +10,9 @@
  * Web Socket Service
  */
 angular.module('vactApp')
-    .controller('RoomConfigurationCtrl', ['iguanaServerModel', 'equipmentData', function (iguanaServerModel, equipmentData) {
+    .controller('RoomConfigurationCtrl', ['vactModel', 'equipmentData', function (vactModel, equipmentData) {
         var self = this;
-        var igServer = iguanaServerModel;
+        var igServer = vactModel;
         //TODO: igServer.post('{name: "John Doe"}');
 
         self.room_properties = equipmentData;
@@ -31,7 +31,7 @@ angular.module('vactApp')
             for (var i = 0; i < self.configuration.length; i++) {
                 if (self.configuration[i].target == targetId) {
                     inUse = true;
-                    if (confirm(targetId + " is already in use. Would you like to display this instead?")) {
+                    if (window.confirm(targetId + " is already in use. Would you like to display this instead?")) {
                         var sendObj = self.buildSendObj(sourceId, targetId);
                         console.log('sendObj: ' + sendObj);
                         self.configuration.splice(i);
@@ -58,7 +58,7 @@ angular.module('vactApp')
 
         self.buildSendObj = function (sourceId, targetId) {
             var sendObj = "{'source':'" + sourceId + "','target':'" + targetId + "'}";
-            alert(sendObj);
+            window.alert(sendObj);
             return sendObj;
         };
 

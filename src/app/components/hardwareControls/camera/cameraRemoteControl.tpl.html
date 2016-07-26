@@ -1,6 +1,12 @@
-<div>
-    <div>Pan up</div>
-    <div>Pan right</div>
-    <div>Pan down</div>
-    <div>Pan left</div>
+<div style="height:50px">
+    <div style="float:left">
+        <span style="position:relative; left:45px;" class="fa fa-arrow-up" ng-click="camera.move(camera.id, 'up')"></span>
+        <span style="position:relative; left:40px; top:15px" class="fa fa-arrow-right" ng-click="camera.move(camera.id, 'right')"></span>
+        <span style="position:relative; left:10px; top:30px" class="fa fa-arrow-down" ng-click="camera.move(camera.id, 'down')"></span>
+        <span style="position:relative; left:-20px; top:15px" class="fa fa-arrow-left" ng-click="camera.move(camera.id, 'left')"></span>
+    </div>
+    <div style="float:right">
+        <span style="position:relative; top:15px" class="fa fa-plus" ng-click="camera.move(camera.id, 'in')"></span>
+        <span style="position:relative; right:15px; top:30px" class="fa fa-minus" ng-click="camera.move(camera.id, 'out')"></span>
+    </div>
 </div>

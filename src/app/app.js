@@ -20,15 +20,15 @@ angular
         'ngTouch',
         'ngAria',
         'vactApp.config.constants',
-        'vactApp.models'
+        'vactApp.models',
+        'vactApp.hardwareCommands'
     ])
-    .run(['$rootScope', '$timeout', '$window', '$location', '$state', '$stateParams',
-        function ($rootScope, $timeout, $window, $location, $state) {
+    .run(['$rootScope', function ($rootScope) {
             $rootScope.angular = angular;
         }
     ])
-    .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$sceDelegateProvider', '$locationProvider', 'ENV',
-        function ($stateProvider, $urlRouterProvider, $httpProvider, $sceDelegateProvider, $locationProvider, ENV) {
+    .config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
+        function ($stateProvider, $urlRouterProvider, $httpProvider) {
             $httpProvider.defaults.withCredentials = true; // Allow cookies with ajax
 
             // For any unmatched url, redirect to the home page
@@ -47,9 +47,6 @@ angular
 
                         return defer.promise.then(function (data) {
                               return data;
-                            },
-                            function () {
-//                              return DEFAULT_PREFERENCE_DATA;
                             });
                       }]
                     }

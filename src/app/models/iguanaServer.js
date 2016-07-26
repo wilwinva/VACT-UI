@@ -39,14 +39,14 @@ angular.module('vactApp.models')
         var methods = {
             collection: collection,
             get: function() {
+                var dataStream;
                 dataStream.send(JSON.stringify({ action: 'get' }));
             }
         };
 
         return methods;
     }])
-   /*
-    .factory('iguanaModel', ['$q', '$rootScope', function ($q, $rootScope) {
+    /*.factory('iguanaModel', ['$q', '$rootScope', function ($q, $rootScope) {
     var IguanaModel = {};
     // Keep all pending requests here until they get responses
     var callbacks = {};
@@ -107,8 +107,7 @@ angular.module('vactApp.models')
     };
 
     return IguanaModel;
-    }]);
-
+    }])
     .factory('iguanaModel', function($websocket){
         var dataStream = $websocket('ws://localhost:1337');
 
@@ -126,8 +125,8 @@ angular.module('vactApp.models')
         };
 
         return methods;
-    })
-    .factory('vactModel', ['$q', '$rootScope', function VactModel($q, $rootScope) {
+    })*/
+    .factory('vactModel', ['$q', '$rootScope', function ($q, $rootScope) {
 
         var VactModel = {}; // We return this object to anything injecting our service
         var callbacks = {}; // Keep all pending requests here until they get responses
@@ -145,7 +144,7 @@ angular.module('vactApp.models')
             listener(JSON.parse(message.data));
         };
 
-        function sendRequest(request) {
+        VactModel.sendRequest = function(request) {
             var defer = $q.defer();
             var callbackId = getCallbackId();
             callbacks[callbackId] = {
@@ -156,7 +155,7 @@ angular.module('vactApp.models')
             console.log('VACT: Sending request', request);
             ws.send(JSON.stringify(request));
             return defer.promise;
-        }
+        };
 
         function listener(data) {
             var messageObj = data;
@@ -184,10 +183,10 @@ angular.module('vactApp.models')
                 type: "get_equipment"
             };
             // Storing in a variable for clarity on what sendRequest returns
-            var promise = sendRequest(request);
+            var promise = this.sendRequest(request);
             return promise;
         };
 
         return VactModel;
-    }])*/
+    }])
 ;

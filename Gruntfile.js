@@ -52,6 +52,7 @@ module.exports = function (grunt) {
     ];
 
     var serveTasks = [
+        'jshint:all',
         'wiredep',
         'concurrent:server',
         'sass',
