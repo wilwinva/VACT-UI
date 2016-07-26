@@ -15,7 +15,7 @@ angular.module('vactApp')
           source: '='
         },
         replace: true,
-        templateUrl: 'app/components/vactButton/vactButton.tpl.html',
+        templateUrl: 'app/components/button/button.tpl.html',
         controller: 'VactButtonCtrl as vbCtrl',
         link : function () {
             console.log('In Directive ****************');
