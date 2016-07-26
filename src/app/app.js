@@ -21,7 +21,8 @@ angular
         'ngAria',
         'vactApp.config.constants',
         'vactApp.mocks',
-        'vactApp.models.vactApi'
+        'vactApp.models.vactApi',
+        'ang-drag-drop'
     ])
     .run(['$rootScope', '$timeout', '$window', '$location', '$state', '$stateParams',
         function ($rootScope, $timeout, $window, $location, $state) {

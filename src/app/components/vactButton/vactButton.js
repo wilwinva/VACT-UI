@@ -14,9 +14,8 @@ angular.module('vactApp')
         scope:{
           source: '='
         },
-        //replace: true,
-         // transclude: true,
-        templateUrl: 'app/components/vactButton/vactButton.tpl.html', //<ng-transclude></ng-transclude>',//
+        replace: true,
+        templateUrl: 'app/components/vactButton/vactButton.tpl.html',
         controller: 'VactButtonCtrl as vbCtrl',
         link : function () {
             console.log('In Directive ****************');
@@ -50,7 +49,7 @@ angular.module('vactApp')
             self.imageSrc += 'projection_design.png';
             break;
         }
-        console.log("self.imageSrc: "+self.imageSrc);
+        //console.log("self.imageSrc: "+self.imageSrc);
       }
     ])
 ;
