@@ -3,14 +3,29 @@
  */
 'use strict';
 
-var cmdsDisplay = {
-    pip_on: function () {
-        return {command: "pip_on"};
-    },
-    pip_off: function () {
-        return {command: "pip_off"};
-    },
-    screensaver_off: function() {
-        return {command:"screensaver_off"};
-    },
-}
+angular.module('vactApp.hardwareCommands', [])
+    .controller('vactDisplayCtrl', ['vactModel', function (vactModel) {
+
+        /**
+         * Activate or deactive PIP on display
+         *
+         * @param id string     The device id
+         * @param on boolean
+         */
+        this.pip = function (id, on) {
+            var requestData = {id: id, options:{ pip: on}};
+            vactModel.sendRequest(requestData);
+        };
+
+        /**
+         * Activate or deactive screen
+         *
+         * @param id string    The device id
+         * @param on boolean
+         */
+        this.screen = function (id, on) {
+            var requestData = {id: id, options:{ screen: on}};
+            vactModel.sendRequest(requestData);
+        };
+    }]);
+

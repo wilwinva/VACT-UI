@@ -11,7 +11,6 @@
  */
 angular.module('vactApp')
     .factory('iguanaModel', ['$q', '$rootScope', function IguanaModel($q, $rootScope) {
-        // We return this object to anything injecting our service
         var IguanaModel = {};
         // Keep all pending requests here until they get responses
         var callbacks = {};
@@ -65,11 +64,11 @@ angular.module('vactApp')
         IguanaModel.getCustomers = function () {
             var request = {
                 type: "get_customers"
-            }
+            };
             // Storing in a variable for clarity on what sendRequest returns
             var promise = sendRequest(request);
             return promise;
-        }
+        };
 
         return IguanaModel;
     }]);

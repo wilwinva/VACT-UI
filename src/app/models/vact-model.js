@@ -16,7 +16,7 @@ angular.module('vactApp.models.vactApi', ['vactApp.mocks'])
           console.log('Retrieving vact mock model data for ' + service);
           //read local data from vactApiModel mock
           return $q.when(vactApiModelMock[service]);
-        }
+        };
       }
     ]);
 

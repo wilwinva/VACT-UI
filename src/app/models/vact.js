@@ -118,11 +118,11 @@ angular.module('vactApp')
         VactModel.getEquipment = function () {
             var request = {
                 type: "get_equipment"
-            }
+            };
             // Storing in a variable for clarity on what sendRequest returns
             var promise = sendRequest(request);
             return promise;
-        }
+        };
 
         return VactModel;
     }])
