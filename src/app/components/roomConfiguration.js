@@ -10,71 +10,60 @@
  * Web Socket Service
  */
 angular.module('vactApp')
-  .controller('RoomConfigurationCtrl', ['iguanaServerModel', 'equipmentData', function (iguanaServerModel, equipmentData) {
-    var self = this;
-    //console.log('In Equipment Controller');
-    //console.log('load john doe');
-    self.name = iguanaServerModel;
+    .controller('RoomConfigurationCtrl', ['iguanaServerModel', 'equipmentData', function (iguanaServerModel, equipmentData) {
+        var self = this;
+        var igServer = iguanaServerModel;
+        //TODO: igServer.post('{name: "John Doe"}');
 
-    //console.log('load Equipment');
-    self.room_properties = equipmentData;
-    //console.log('loaded Equipment' + self.room_properties);
+        self.room_properties = equipmentData;
+        self.sources = self.room_properties.source;
+        self.targets = self.room_properties.target;
+        self.configuration = self.room_properties.configuration;
 
-    self.sources = self.room_properties.source;
-    self.targets = self.room_properties.target;
+        var emptySet = {"type": "none", "label": "None", "id": "none", "source": ""};
+        self.sources.push(emptySet);
+        self.targets.push(emptySet);
 
-    self.linkedSources = [];
-    self.linkedTargets = [];
-    //load the linkedTargets from the sources
-    for(var i=0;i<self.sources.length;i++){
-      var target = self.sources[i].target;
-      if(target != 'none'){
-        self.linkedTargets.push(target);
-      }
-    }
-    //load the linkedSources from the targets
-    for(var i=0;i<self.targets.length;i++){
-      var source = self.targets[i].source;
-      if(source != 'none'){
-        self.linkedSources.push(source);
-      }
-    }
+        self.targetSelected = function (source, targetId) {
+            var sourceId = source.id;
+            //need to test for targets displaying something already
+            var inUse = false;
+            for (var i = 0; i < self.configuration.length; i++) {
+                if (self.configuration[i].target == targetId) {
+                    inUse = true;
+                    if (confirm(targetId + " is already in use. Would you like to display this instead?")) {
+                        var sendObj = self.buildSendObj(sourceId, targetId);
+                        console.log('sendObj: ' + sendObj);
+                        self.configuration.splice(i);
+                        inUse = false;
+                    }
+                    break;
+                }
+            }
 
-    var emptySet = {"type":"none","label":"None","id":"none","source":""};
-    self.sources.push(emptySet);
-    self.targets.push(emptySet);
+            if (!inUse) {
+                var sendObj = self.buildSendObj(sourceId, targetId);
+                self.configuration.push(sendObj);
+                console.log('sendObj: ' + sendObj);
+            }
+        };
 
+        self.sourceSelected = function (target, sourceId) {
+            //sources can be displayed on multiple targets
+            var targetId = target.id;
+            var sendObj = self.buildSendObj(sourceId, targetId);
+            self.configuration.push(sendObj);
+            console.log('sendObj: ' + sendObj);
+        };
 
-    self.targetSelected = function(source, target){
-      var source = source.id;
-      //need to test for targets displaying something already
-      if(self.linkedTargets.indexOf(target)) {
-        var sendObj = self.buildSendObj(source, target);
-        console.log('sendObj: ' + sendObj);
-      }else{
-        if(confirm(target + " is already in use. Would you like to display this instead?")){
-          //TODO: need to clear out the other source asset displaying
-          var sendObj = self.buildSendObj(source, target);
-          console.log('sendObj: ' + sendObj);
+        self.buildSendObj = function (sourceId, targetId) {
+            var sendObj = "{'source':'" + sourceId + "','target':'" + targetId + "'}";
+            alert(sendObj);
+            return sendObj;
+        };
+
+        self.filterNone = function (menuItem) {
+            return menuItem.id == "none" ? false : true;
         }
-      }
-    };
-
-    self.sourceSelected = function(target, source){
-      //sources can be displayed on multiple targets
-      var target = target.id;
-      var sendObj = self.buildSendObj(source,target);
-      console.log('sendObj: ' + sendObj);
-    };
-
-    self.buildSendObj = function(source,target){
-      var sendObj = "{'source-id':'"+ source +"','target-id':'"+target + "'}";
-      alert(sendObj);
-      return sendObj;
-    };
-
-    self.filterNone = function (menuItem) {
-      return menuItem.id == "none"?false:true;
-    }
-  }])
+    }])
 ;
