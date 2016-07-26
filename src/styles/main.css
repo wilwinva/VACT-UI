@@ -1,0 +1,11 @@
+ul{list-style-type: none;}
+h4 span{margin-right:30px;}
+
+#sourceEquipment,#targetEquipment{margin-bottom:20px;}
+.vactButton{display:inline-block;width:110px;margin:0 10px 10px 0;text-align:center;border:1px solid #000;}
+.vactButton img{width:75px;}
+.vactButton .display{display:none;}
+.vactButton.displaying .display{display:block;}
+.vactButton select{margin-top:24px;}
+.vactButton.displaying select{margin-top:0;}
+img.document_camera,img.desktop,img.video_camera,img.lcd,img.plasma,img.projector{height:70px;width:85px;}
