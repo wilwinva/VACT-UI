@@ -19,6 +19,6 @@ module.exports = function (request) {
     });
 
     connection.on('close', function (connection) {
-        console.log('connection closed');
+        console.log('closed connection: '+connection);
     });
 };

@@ -4,7 +4,9 @@
 'use strict';
 
 angular.module('vactApp.hardwareCommands', [])
-    .controller('vactCameraCtrl', ['vactModel', function (vactModel) {
+    .controller('vactCameraCtrl', ['$scope', 'vactModel', function ($scope, vactModel) {
+
+        this.id = $scope.camid;
 
         // Save preset data to given camera
         this.presetStore = function (cameraId, data) {
@@ -35,6 +37,7 @@ angular.module('vactApp.hardwareCommands', [])
          *      Halt camera with: 'stop'
          */
         this.move = function (id, direction) {
+            console.log('Moved camera '+id+' '+direction);
             var requestData = {
                 id: id,
                 options: {
