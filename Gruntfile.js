@@ -208,22 +208,22 @@ module.exports = function (grunt) {
                                 connect.static(appConfig.src)
                             ];
                         }/*,
-                        iguanaServer: {
-                            proxies: [
-                                {
-                                    context: '/cortex',
-                                    host: '10.10.2.202',
-                                    port: 8080,
-                                    https: false,
-                                    xforward: false,
-                                    headers: {
-                                        "x-custom-added-header": value
-                                    },
-                                    hideHeaders: ['x-removed-header'],
-                                    ws: true
-                                }
-                            ]
-                        }*/
+                         iguanaServer: {
+                         proxies: [
+                         {
+                         context: '/cortex',
+                         host: '10.10.2.202',
+                         port: 8080,
+                         https: false,
+                         xforward: false,
+                         headers: {
+                         "x-custom-added-header": value
+                         },
+                         hideHeaders: ['x-removed-header'],
+                         ws: true
+                         }
+                         ]
+                         }*/
                     }
                 },
                 dist: {
@@ -238,55 +238,46 @@ module.exports = function (grunt) {
                 options: {
                     port: 1337,
                     handler: '<%= config.src %>/app/models/mocks/iguanaServer.mock.js'
-                }
-                ,
+                },
                 target: {}
-            }
-            ,
+            },
 
             // Make sure code styles are up to par and there are no obvious mistakes
             jshint: {
                 options: {
                     jshintrc: '.jshintrc',
                     reporter: require('jshint-stylish')
-                }
-                ,
+                },
                 all: {
                     src: [
                         'Gruntfile.js',
                         '<%= config.src %>/**/*.js'
                     ]
-                }
-                ,
+                },
                 test: {
                     options: {
                         jshintrc: 'test/.jshintrc'
-                    }
-                    ,
+                    },
                     src: ['test/spec/**/*.spec.js']
                 }
-            }
-            ,
+            },
 
             // Make sure code styles are up to par
             jscs: {
                 options: {
                     config: '.jscsrc',
                     verbose: true
-                }
-                ,
+                },
                 all: {
                     src: [
                         'Gruntfile.js',
                         '<%= config.src %>/**/*.js'
                     ]
-                }
-                ,
+                },
                 test: {
                     src: ['test/spec/**/*.js']
                 }
-            }
-            ,
+            },
 
             // Empties folders to start fresh
             clean: {
@@ -299,19 +290,16 @@ module.exports = function (grunt) {
                             '!<%= config.dist %>/.git*'
                         ]
                     }]
-                }
-                ,
+                },
                 server: '.tmp'
-            }
-            ,
+            },
 
             // Automatically inject Bower components into the app
             wiredep: {
                 app: {
                     src: ['<%= config.src %>/index.html'],
                     ignorePath: /\.\.\//
-                }
-                ,
+                },
                 //TODO: this isn't in the ASK file
                 test: {
                     devDependencies: true,
@@ -322,16 +310,14 @@ module.exports = function (grunt) {
                             block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
                             detect: {
                                 js: /'(.*\.js)'/gi
-                            }
-                            ,
+                            },
                             replace: {
                                 js: '\'{{filePath}}\','
                             }
                         }
                     }
                 }
-            }
-            ,
+            },
 
             // Compiles Sass to CSS and generates necessary files if requested
             sass: {
@@ -344,8 +330,7 @@ module.exports = function (grunt) {
                         outputStyle: 'compressed',
                     }
                 }
-            }
-            ,
+            },
 
             // Renames files for browser caching purposes
             filerev: {
@@ -358,8 +343,7 @@ module.exports = function (grunt) {
                         '<%= config.dist %>/styles/fonts/*'
                     ]
                 }
-            }
-            ,
+            },
 
             // Reads HTML for usemin blocks to enable smart builds that automatically
             // concat, minify and revision files. Creates configurations in memory so
@@ -373,14 +357,12 @@ module.exports = function (grunt) {
                             steps: {
                                 js: ['concat', 'uglify'],
                                 css: ['cssmin']
-                            }
-                            ,
+                            },
                             post: {}
                         }
                     }
                 }
-            }
-            ,
+            },
 
             // Performs rewrites based on filerev and the useminPrepare configuration
             usemin: {
@@ -400,8 +382,7 @@ module.exports = function (grunt) {
                         html: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
                     }
                 }
-            }
-            ,
+            },
 
             imagemin: {
                 dist: {
@@ -412,8 +393,7 @@ module.exports = function (grunt) {
                         dest: '<%= config.dist %>/images'
                     }]
                 }
-            }
-            ,
+            },
 
             svgmin: {
                 dist: {
@@ -424,8 +404,7 @@ module.exports = function (grunt) {
                         dest: '<%= config.dist %>/images'
                     }]
                 }
-            }
-            ,
+            },
 
             htmlmin: {
                 dist: {
@@ -437,22 +416,19 @@ module.exports = function (grunt) {
                         removeOptionalTags: true
                     }
                 }
-            }
-            ,
+            },
 
             //Grunt build task to concatenate & register your AngularJS templates in the $templateCache
             ngtemplates: {
                 vactApp: {
                     options: {
                         prefix: 'app/components/'
-                    }
-                    ,
+                    },
                     cwd: 'src/app/components',
                     src: '**/**.html',
                     dest: 'src/app/templates.js'
                 }
-            }
-            ,
+            },
 
             // tries to make the code safe for minification automatically by
             // using the Angular long form for dependency injection. It doesn't work on
@@ -466,8 +442,7 @@ module.exports = function (grunt) {
                         dest: '.tmp/concat/scripts'
                     }]
                 }
-            }
-            ,
+            },
 
             // useminPrepare and replace both want to modify index.html.  Care must be taken that they don't overwrite each other.
             // Replace is set-up to be the final task run on index.html.  It runs out of the dist folder.
@@ -482,13 +457,11 @@ module.exports = function (grunt) {
                                 }
                             }
                         ]
-                    }
-                    ,
+                    },
                     files: [
                         {expand: true, flatten: true, src: ['<%= config.dist %>/index.html'], dest: '<%= config.dist %>'}
                     ]
-                }
-                ,
+                },
                 unSecureCookie: {
                     options: {
                         patterns: [
@@ -497,13 +470,11 @@ module.exports = function (grunt) {
                                 replacement: 'placeHolder1 \', secureCookies: false, placeHolder2: \'placeHolder2'
                             }
                         ]
-                    }
-                    ,
+                    },
                     files: [
                         {expand: true, flatten: true, src: ['<%= config.app %>/config.js'], dest: '<%= config.app %>'}
                     ]
-                }
-                ,
+                },
                 secureCookie: {
                     options: {
                         patterns: [
@@ -512,13 +483,11 @@ module.exports = function (grunt) {
                                 replacement: 'placeHolder1 \', secureCookies: true, placeHolder2: \'placeHolder2'
                             }
                         ]
-                    }
-                    ,
+                    },
                     files: [
                         {expand: true, flatten: true, src: ['<%= config.app %>/config.js'], dest: '<%= config.app %>'}
                     ]
-                }
-                ,
+                },
                 serve: {
                     options: {
                         patterns: [
@@ -529,14 +498,12 @@ module.exports = function (grunt) {
                                 }
                             }
                         ]
-                    }
-                    ,
+                    },
                     files: [
                         {expand: true, flatten: true, src: ['<%= config.src %>/index.html'], dest: '.tmp/'}
                     ]
                 }
-            }
-            ,
+            },
 
             // Copies remaining files to places other tasks can use
             copy: {
@@ -569,16 +536,14 @@ module.exports = function (grunt) {
                             dest: '<%= config.dist %>'
                         }
                     ]
-                }
-                ,
+                },
                 styles: {
                     expand: true,
                     cwd: '<%= config.src %>/styles',
                     dest: '.tmp/styles/',
                     src: '{,*/}*.css'
                 }
-            }
-            ,
+            },
 
             // Run some tasks in parallel to speed up the build process
             concurrent: {
@@ -596,8 +561,7 @@ module.exports = function (grunt) {
                     // 'imagemin',
                     'svgmin'
                 ]
-            }
-            ,
+            },
 
             // Test settings
             karma: {
@@ -605,8 +569,7 @@ module.exports = function (grunt) {
                     configFile: 'karma/karma.conf.js',
                     singleRun: true
                 }
-            }
-            ,
+            },
 
             protractor_webdriver: {
                 start: {
@@ -615,18 +578,15 @@ module.exports = function (grunt) {
                         command: 'webdriver-manager start'
                     }
                 }
-            }
-            ,
+            },
 
             protractor: {
                 options: {
                     keepAlive: true,
                     configFile: 'e2e/protractor.conf.js'
-                }
-                ,
+                },
                 run: {}
-            }
-            ,
+            },
 
             // Generate Documentation -- Note this is picky in windows with the direction of the slashes
             exec: {
