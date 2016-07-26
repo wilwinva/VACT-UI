@@ -46,8 +46,7 @@ angular.module('vactApp.models')
 
         return methods;
     }])
-   /*
-    .factory('iguanaModel', ['$q', '$rootScope', function ($q, $rootScope) {
+    /*.factory('iguanaModel', ['$q', '$rootScope', function ($q, $rootScope) {
     var IguanaModel = {};
     // Keep all pending requests here until they get responses
     var callbacks = {};
@@ -108,8 +107,7 @@ angular.module('vactApp.models')
     };
 
     return IguanaModel;
-    }]);
-
+    }])
     .factory('iguanaModel', function($websocket){
         var dataStream = $websocket('ws://localhost:1337');
 
@@ -127,7 +125,7 @@ angular.module('vactApp.models')
         };
 
         return methods;
-    })
+    })*/
     .factory('vactModel', ['$q', '$rootScope', function ($q, $rootScope) {
 
         var VactModel = {}; // We return this object to anything injecting our service
@@ -185,10 +183,10 @@ angular.module('vactApp.models')
                 type: "get_equipment"
             };
             // Storing in a variable for clarity on what sendRequest returns
-            var promise = sendRequest(request);
+            var promise = this.sendRequest(request);
             return promise;
         };
 
         return VactModel;
-    }])*/
+    }])
 ;
