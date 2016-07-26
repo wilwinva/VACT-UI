@@ -21,7 +21,8 @@ angular
         'ngAria',
         'vactApp.config.constants',
         'vactApp.mocks',
-        'vactApp.models.vactApi'
+        'vactApp.models.vactApi',
+        'vactApp.hardwareCommands'
     ])
     .run(['$rootScope', function ($rootScope) {
             $rootScope.angular = angular;

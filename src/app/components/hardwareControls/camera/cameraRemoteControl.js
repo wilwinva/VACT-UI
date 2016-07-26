@@ -12,7 +12,7 @@ angular.module('vactApp.hardwareCommands')
                 camid: '@'
             },
             templateUrl: 'app/components/hardwareControls/camera/cameraRemoteControl.tpl.html',
-            controller: 'vactCameraCtrl',  // todo: include this controller - throws error now
+            controller: 'vactCameraCtrl',
             controllerAs: 'camera'
         };
     });
