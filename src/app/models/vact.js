@@ -64,9 +64,9 @@ angular.module('vactApp')
 
         return methods;
     })
-    .factory('vactModel', ['$q', '$rootScope', function VactModel($q, $rootScope) {
+    .factory('vactModel', ['$q', '$rootScope', function ($q, $rootScope) {
 
-        var model = {}; // We return this object to anything injecting our service
+        var VactModel = {}; // We return this object to anything injecting our service
         var callbacks = {}; // Keep all pending requests here until they get responses
         var currentCallbackId = 0; // Create a unique callback ID to map requests to responses
         var ws = new WebSocket("ws://localhost:1337"); // Create our websocket object with the address to the websocket
@@ -116,7 +116,7 @@ angular.module('vactApp')
         }
 
         // Define a "getter" for getting room equipment data
-        model.getEquipment = function () {
+        VactModel.getEquipment = function () {
             var request = {
                 type: "get_equipment"
             };
@@ -125,6 +125,6 @@ angular.module('vactApp')
             return promise;
         };
 
-        return model;
+        return VactModel;
     }])
 ;
