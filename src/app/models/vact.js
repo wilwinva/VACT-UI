@@ -82,7 +82,7 @@ angular.module('vactApp')
             listener(JSON.parse(message.data));
         };
 
-        function sendRequest(request) {
+        VactModel.sendRequest = function(request) {
             var defer = $q.defer();
             var callbackId = getCallbackId();
             callbacks[callbackId] = {
@@ -93,7 +93,7 @@ angular.module('vactApp')
             console.log('VACT: Sending request', request);
             ws.send(JSON.stringify(request));
             return defer.promise;
-        }
+        };
 
         function listener(data) {
             var messageObj = data;
