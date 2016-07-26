@@ -8,21 +8,21 @@
  * Alerts Controller of the insideApp
  */
 angular.module('vactApp')
-    .directive('vactButton', function () {
+    .directive('vactEquipment', function () {
       return {
         restrict: 'E',
         scope:{
           source: '='
         },
         replace: true,
-        templateUrl: 'app/components/button/button.tpl.html',
-        controller: 'VactButtonCtrl as vbCtrl',
+        templateUrl: 'app/components/equipment/equipment.tpl.html',
+        controller: 'EquipmentCtrl as equipmentCtrl',
         link : function () {
             console.log('In Directive ****************');
         }
       };
     })
-    .controller('VactButtonCtrl',['$scope',
+    .controller('EquipmentCtrl',['$scope',
       function($scope) {
         var self = this;
         self.imageSrc = "/images/";

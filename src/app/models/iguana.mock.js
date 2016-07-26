@@ -9,8 +9,8 @@
  *
  * Web Socket Service
  */
-angular.module('vactApp')
-    .factory('iguanaModel', ['$q', '$rootScope', function IguanaModel($q, $rootScope) {
+angular.module('vactApp.mocks')
+    .factory('iguanaModel', ['$q', '$rootScope', function ($q, $rootScope) {
         var IguanaModel = {};
         // Keep all pending requests here until they get responses
         var callbacks = {};

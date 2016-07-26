@@ -7,7 +7,7 @@
  * # Models.insideApiModel
  * snl Model of the insideApp
  */
-angular.module('vactApp.models.vactApi', ['vactApp.mocks'])
+angular.module('vactApp.models')
     .service('vactApiModel', ['$q', 'vactApiModelMock',
       function VactApiModel($q, vactApiModelMock) {
         var vactApiModel = this;

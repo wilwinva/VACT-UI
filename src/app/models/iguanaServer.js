@@ -9,8 +9,8 @@
  *
  * Web Socket Service
  */
-angular.module('vactApp')
-    .factory('iguanaServerModel',['$window', function IguanaServerModel($window) {
+angular.module('vactApp.models')
+    .factory('iguanaServerModel',['$window', function ($window) {
         var collection = [];
         $window.WebSocket = $window.WebSocket || $window.MozWebSocket;
 
@@ -45,7 +45,7 @@ angular.module('vactApp')
 
         return methods;
     }])
-    .factory('iguanaModel', function($websocket){
+   /* .factory('iguanaModel', function($websocket){
         var dataStream = $websocket('ws://localhost:1337');
 
         var collection = [];
@@ -125,5 +125,5 @@ angular.module('vactApp')
         };
 
         return VactModel;
-    }])
+    }])*/
 ;

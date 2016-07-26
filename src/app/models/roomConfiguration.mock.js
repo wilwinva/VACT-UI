@@ -1,13 +1,13 @@
 'use strict';
 /**
  * @ngdoc function
- * @name vactApp.module:supportTeams
+ * @name vactApp.module:roomConfiguration
  * @description
  * # supportTeams
- * mockData for supportTeams of the vactApp
+ * mockData for room configuration of the vactApp
  */
 angular.module('vactApp.mocks')
-    .constant('EQUIPMENT_MOCK',
+    .constant('ROOM_CONFIG_MOCK',
         {
           "bldg":"870",
           "room":"123",
