@@ -10,7 +10,7 @@
  * Web Socket Service
  */
 angular.module('vactApp.models')
-    .factory('iguanaServerModel',['$window', function ($window) {
+    /*.factory('iguanaServerModel',['$window', function ($window) {
         var collection = [];
         $window.WebSocket = $window.WebSocket || $window.MozWebSocket;
 
@@ -46,7 +46,7 @@ angular.module('vactApp.models')
 
         return methods;
     }])
-    /*.factory('iguanaModel', ['$q', '$rootScope', function ($q, $rootScope) {
+    .factory('iguanaModel', ['$q', '$rootScope', function ($q, $rootScope) {
     var IguanaModel = {};
     // Keep all pending requests here until they get responses
     var callbacks = {};

@@ -12,8 +12,6 @@
 angular.module('vactApp')
     .controller('RoomConfigurationCtrl', ['vactModel', 'equipmentData', function (vactModel, equipmentData) {
         var self = this;
-        var igServer = vactModel;
-        //TODO: igServer.post('{name: "John Doe"}');
 
         self.room_properties = equipmentData;
         self.sources = self.room_properties.source;
@@ -29,12 +27,11 @@ angular.module('vactApp')
             //need to test for targets displaying something already
             var inUse = false;
             for (var i = 0; i < self.configuration.length; i++) {
-                if (self.configuration[i].target == targetId) {
+                if (self.configuration[i].target === targetId) {
                     inUse = true;
                     if (window.confirm(targetId + " is already in use. Would you like to display this instead?")) {
-                        var sendObj = self.buildSendObj(sourceId, targetId);
-                        console.log('sendObj: ' + sendObj);
                         self.configuration.splice(i);
+                        //TODO: do we need to send a message when we move something off of the display
                         inUse = false;
                     }
                     break;
@@ -57,13 +54,14 @@ angular.module('vactApp')
         };
 
         self.buildSendObj = function (sourceId, targetId) {
-            var sendObj = "{'source':'" + sourceId + "','target':'" + targetId + "'}";
+            var sendObj = {source: sourceId, target: targetId};
+            vactModel.sendRequest(sendObj);
             window.alert(sendObj);
             return sendObj;
         };
 
         self.filterNone = function (menuItem) {
-            return menuItem.id == "none" ? false : true;
-        }
+            return menuItem.id === "none" ? false : true;
+        };
     }])
 ;
