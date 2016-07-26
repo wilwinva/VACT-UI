@@ -1,7 +1,1 @@
-<button type="image">
-    <img src="{{vbCtrl.imageSrc}}" alt="{{source.type}}"/>
-    {{source.name}}
-    <div ng-if="source.type=='video_camera'">
-        <vact-camera-remote-control camid="{{source.name}}"></vact-camera-remote-control>
-    </div>
-</button>
+<img class="{{source.type}}" ng-src="{{vbCtrl.imageSrc}}" alt="{{source.type}}"/>

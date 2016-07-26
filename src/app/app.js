@@ -21,15 +21,16 @@ angular
         'ngAria',
         'vactApp.config.constants',
         'vactApp.mocks',
-        'vactApp.models.vactApi',
-        'vactApp.hardwareCommands'
+        'vactApp.models.vactApi'
     ])
-    .run(['$rootScope', function ($rootScope) {
+    .run(['$rootScope', '$timeout', '$window', '$location', '$state', '$stateParams',
+        function ($rootScope, $timeout, $window, $location, $state) {
             $rootScope.angular = angular;
         }
     ])
-    .config(['$stateProvider', '$urlRouterProvider',
-        function ($stateProvider, $urlRouterProvider) {
+    .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$sceDelegateProvider', '$locationProvider', 'ENV',
+        function ($stateProvider, $urlRouterProvider, $httpProvider, $sceDelegateProvider, $locationProvider, ENV) {
+            $httpProvider.defaults.withCredentials = true; // Allow cookies with ajax
 
             // For any unmatched url, redirect to the home page
             $urlRouterProvider.otherwise('/');
