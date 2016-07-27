@@ -20,7 +20,10 @@ module.exports = function (request) {
             var object = JSON.parse(message.utf8Data);
 
             console.log('received:', object);
+if(object.event && object.event==='drop'){
+    console.log('routing switch should switch input '+object.condition_1 + ' to output '+object.condition_2);
 
+}
             setTimeout(function () {
                 connection.sendUTF(JSON.stringify(object));
             }, 2000);

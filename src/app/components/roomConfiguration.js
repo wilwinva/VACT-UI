@@ -53,7 +53,7 @@ angular.module('vactApp')
                         inUse = true;
                         if (window.confirm(targetId + ' is already in use. Would you like to display this instead?')) {
                             //TODO: do we need to send a message when we move something off of the display
-                          self.targets.splice(tIndex);
+                          //self.targets.splice(tIndex);
                             inUse = false;
                             self.targets[tIndex].source = sourceId;
                         }
