@@ -38,9 +38,9 @@ angular.module('vactApp')
             }
         }
 
-        var emptySet = {'type': 'none', 'label': 'None', 'id': 'none', 'source': ''};
-        self.sources.push(emptySet);
-        self.targets.push(emptySet);
+        var emptySet = {'type': 'none', 'label': 'None', 'id': 'none'};
+        //self.sources.push(emptySet);
+        //self.targets.push(emptySet);
 
         self.targetSelected = function (source, targetId) {
             var sourceId = source.id;

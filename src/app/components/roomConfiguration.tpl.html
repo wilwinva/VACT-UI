@@ -6,7 +6,7 @@
     <div class="col-sm-12" id="sourceEquipment">
         <h4>Source Equipment</h4>
   <span ng-repeat="source in roomCtrl.sources | filter:roomCtrl.filterNone" class="vactButton"
-        ng-class="{displaying:targetSelection != 'none'}" >
+        ng-class="{displaying:source.target}">
     <vact-equipment source="source"></vact-equipment>
     {{source.label}}
     <vact-camera-remote-control camid="{{source.id}}" ng-if="source.type=='video_camera'"></vact-camera-remote-control>
@@ -14,19 +14,21 @@
     <select ng-model="source.target"
             ng-options="target.id as target.label for target in roomCtrl.targets"
             ng-change="roomCtrl.targetSelected(source, source.target)">
+        <option value="">None</option>
     </select>
   </span>
     </div>
     <div class="col-sm-12" id="targetEquipment">
         <h4>Target Equipment</h4>
           <span ng-repeat="target in roomCtrl.targets | filter:roomCtrl.filterNone" class="vactButton"
-                ng-class="{displaying:sourceSelection != 'none'}">
+                ng-class="{displaying:target.source}">
             <vact-equipment source="target"></vact-equipment>
             {{target.label}}
             <div class="display">Displaying</div>
             <select ng-model="target.source"
                     ng-options="source.id as source.label for source in roomCtrl.sources"
                     ng-change="roomCtrl.sourceSelected(target, target.source)">
+              <option value="">None</option>
             </select>
           </span>
     </div>
