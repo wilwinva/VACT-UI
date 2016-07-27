@@ -9,9 +9,7 @@
         ng-class="{displaying:targetSelection != 'none'}" >
     <vact-equipment source="source"></vact-equipment>
     {{source.label}}
-    <div ng-if="source.type=='video_camera'">
-        <vact-camera-remote-control camid="{{source.id}}"></vact-camera-remote-control>
-    </div>
+    <vact-camera-remote-control camid="{{source.id}}" ng-if="source.type=='video_camera'"></vact-camera-remote-control>
     <div class="display">Displayed on</div>
     <select ng-model="source.target"
             ng-options="target.id as target.label for target in roomCtrl.targets"

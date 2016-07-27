@@ -3,9 +3,21 @@ h4 span{margin-right:30px;}
 
 #sourceEquipment,#targetEquipment{margin-bottom:20px;}
 .vactButton{display:inline-block;width:110px;margin:0 10px 10px 0;text-align:center;border:1px solid #000;}
-.vactButton img{width:75px;}
-.vactButton .display{display:none;}
-.vactButton.displaying .display{display:block;}
+.vactButton img{width:75px;margin-bottom:5px;margin-top:10px;}
+.vactButton .display,.vactButton .camera-controls{display:none;}
+.vactButton.displaying .display,.vactButton.displaying .camera-controls{display:block;}
 .vactButton select{margin-top:24px;}
 .vactButton.displaying select{margin-top:0;}
 img.document_camera,img.desktop,img.video_camera,img.lcd,img.plasma,img.projector{height:70px;width:85px;}
+
+
+.camera-controls{height:50px}
+.camera-controls div span{display:inline;}
+.camera-controls .pan{display:inline-block;width:60%;}
+.camera-controls .zoom{display:inline-block;width:30%;}
+.camera-controls .pan .left{left:5px;top:13px}
+.camera-controls .pan .up{left:0;top:0;}
+.camera-controls .pan .down{left:-19px;top:27px;}
+.camera-controls .pan .right{left:15px;top:-11px;}
+.camera-controls .zoom .in{left:0;top:4px;}
+.camera-controls .zoom .out{left:0;top:4px;}
