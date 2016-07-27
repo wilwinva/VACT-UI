@@ -38,10 +38,6 @@ angular.module('vactApp')
             }
         }
 
-        var emptySet = {'type': 'none', 'label': 'None', 'id': 'none'};
-        //self.sources.push(emptySet);
-        //self.targets.push(emptySet);
-
         self.targetSelected = function (source, targetId) {
             var sourceId = source.id;
             //need to test for targets displaying something already
@@ -90,7 +86,7 @@ angular.module('vactApp')
         self.buildSendObj = function (sourceId, targetId) {
             var sendObj = {source: sourceId, target: targetId};
             vactModel.sendRequest(sendObj);
-            window.alert(sendObj);
+            //window.alert(sendObj);
             return sendObj;
         };
 
