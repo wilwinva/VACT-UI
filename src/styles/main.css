@@ -1,4 +1,5 @@
 #content{margin-top:10px;}
+
 ul{list-style-type: none;}
 h4{margin-top:10px;margin-bottom:0;}
 h4 span{margin-right:30px;}
@@ -6,6 +7,8 @@ h4 .bldg{}
 h4 .room{}
 h4 .room-type{display:none;}
 
+#content .classified h2{color:red;}
+#content .spn h2{color:blue;}
 
 #sourceEquipment,#targetEquipment{margin-bottom:20px;}
 .vactButton{display:inline-block;width:110px;margin:0 10px 10px 0;text-align:center;border:1px solid #000;}

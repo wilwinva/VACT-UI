@@ -12,7 +12,11 @@
 angular.module('vactApp')
     .controller('RoomConfigurationCtrl', ['vactModel', 'equipmentData', function (vactModel, equipmentData) {
         var self = this;
-
+        self.room_classification = 0;
+        self.room_classifications = [{"label":"Unclassified","id":0},{"label":"Classified","id":1},{"label":"SPN","id":2}];
+        self.setRoomClassification = function(room_classification){
+          self.room_classification = room_classification;
+        };
         self.room_properties = equipmentData;
         self.sources = self.room_properties.source;
         self.targets = self.room_properties.target;
@@ -49,6 +53,7 @@ angular.module('vactApp')
                         inUse = true;
                         if (window.confirm(targetId + ' is already in use. Would you like to display this instead?')) {
                             //TODO: do we need to send a message when we move something off of the display
+                          self.targets.splice(tIndex);
                             inUse = false;
                             self.targets[tIndex].source = sourceId;
                         }
