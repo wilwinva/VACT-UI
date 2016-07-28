@@ -16,47 +16,65 @@ angular.module('vactApp.mocks')
                 {
                     'type': 'laptop',
                     'label': 'Laptop 1',
-                    'id': 'laptop1'
+                    'id': 'laptop1',
+                    'target': 'lcd2',
+                    'inUse': 'lcd2'
                 },
                 {
                     'type': 'laptop',
                     'label': 'Laptop 2',
-                    'id': 'laptop2'
+                    'id': 'laptop2',
+                    'target': 'none',
+                    'inUse': 'none'
                 },
                 {
                     'type': 'laptop',
                     'label': 'Laptop 3',
-                    'id': 'laptop3'
+                    'id': 'laptop3',
+                    'target': 'none',
+                    'inUse': 'none'
                 },
                 {
                     'type': 'laptop',
                     'label': 'Laptop 4',
-                    'id': 'laptop4'
+                    'id': 'laptop4',
+                    'target': 'none',
+                    'inUse': 'none'
                 },
                 {
                     'type': 'desktop',
                     'label': 'Desktop 1',
-                    'id': 'desktop1'
+                    'id': 'desktop1',
+                    'target': 'none',
+                    'inUse': 'none'
                 },
                 {
                     'type': 'document_camera',
                     'label': 'Doc Cam 1',
-                    'id': 'doccam1'
+                    'id': 'doccam1',
+                    'target': 'none',
+                    'inUse': 'none'
                 },
                 {
                     'type': 'document_camera',
                     'label': 'Doc Cam 2',
-                    'id': 'doccam2'
+                    'id': 'doccam2',
+                    'target': 'none',
+                    'inUse': 'none'
                 },
                 {
                     'type': 'video_camera',
                     'label': 'Cam 1',
-                    'id': 'vidcam1'
+                    'id': 'vidcam1',
+                    'target': 'lcd1',
+                    'inUse': 'lcd1'
                 },
                 {
                     'type': 'video_camera',
                     'label': 'Cam 2',
-                    'id': 'vidcam2'
+                    'id': 'vidcam2',
+                    'target': 'none',
+                    'inUse': 'none'
                 }
 
             ],
@@ -64,34 +82,31 @@ angular.module('vactApp.mocks')
                 {
                     'type': 'lcd',
                     'label': 'LCD 1',
-                    'id': 'lcd1'
+                    'id': 'lcd1',
+                    'source': 'vidcam1',
+                    'inUse': 'vidcam1'
                 },
                 {
                     'type': 'lcd',
                     'label': 'LCD 2',
-                    'id': 'lcd2'
+                    'id': 'lcd2',
+                    'source': 'laptop1',
+                    'inUse': 'laptop1'
                 },
                 {
                     'type': 'plasma',
                     'label': 'Plasma 1',
-                    'id': 'plasma1'
+                    'id': 'plasma1',
+                    'source': 'none',
+                    'inUse': 'none'
                 },
                 {
                     'type': 'projector',
                     'label': 'Projector 1',
-                    'id': 'projector1'
+                    'id': 'projector1',
+                    'source': 'none',
+                    'inUse': 'none'
                 }
-            ],
-            'configuration': [
-                {
-                    'source': 'laptop1',
-                    'target': 'lcd2'
-                },
-                {
-                    'source': 'vidcam1',
-                    'target': 'lcd1'
-                }
-
             ]
         }
     );

@@ -19,18 +19,28 @@ module.exports = function (request) {
         if (message.type === 'utf8') {
             var object = JSON.parse(message.utf8Data);
 
-            console.log('received:', object);
-if(object.event && object.event==='drop'){
-    console.log('routing switch should switch input '+object.condition_1 + ' to output '+object.condition_2);
+            console.log('Policy Manager received:', object);
 
-}
-            setTimeout(function () {
-                connection.sendUTF(JSON.stringify(object));
-            }, 2000);
+            if (object.event) {
+                //room classification changed
+                if (object.event === 'classification') {
+                    console.log('Received classification change message room is operating as ' + object.status);
+                }
+                // Input device is assigned to an output device
+                if (object.event === 'drop') {
+                    console.log('routing switch should switch input ' + object.condition_1 + ' to output ' + object.condition_2);
+                    var routingSwitchMsg = {event: 'switch', input: object.condition_1, output: object.condition_2};
+                    setTimeout(function () {
+                        connection.sendUTF(JSON.stringify(routingSwitchMsg));
+                    }, 2000);
+                }
+            }
+
+
         }
     });
 
     connection.on('close', function (connection) {
-        console.log('closed connection: '+connection);
+        console.log('closed connection: ' + connection);
     });
 };

@@ -13,90 +13,77 @@ angular.module('vactApp')
     .controller('RoomConfigurationCtrl', ['vactModel', 'equipmentData', function (vactModel, equipmentData) {
         var self = this;
         self.room_classification = 0;
-        self.room_classifications = [{"label":"Unclassified","id":0},{"label":"Classified","id":1},{"label":"SPN","id":2}];
-        self.setRoomClassification = function(room_classification){
-          self.room_classification = room_classification;
-        };
+        self.room_classifications = [{"label": "Unclassified", "id": 0}, {
+            "label": "Classified",
+            "id": 1
+        }, {"label": "SPN", "id": 2}];
         self.room_properties = equipmentData;
         self.sources = self.room_properties.source;
         self.targets = self.room_properties.target;
-        self.configuration = self.room_properties.configuration;
 
-        for (var sourceIndex = 0; sourceIndex < self.sources.length; sourceIndex++) {
-            var sourceId = self.sources[sourceIndex].id;
-            for (var configSourceIndex = 0; configSourceIndex < self.configuration.length; configSourceIndex++) {
-                if (self.configuration[configSourceIndex].source === sourceId) {
-                    self.sources[sourceIndex].target = self.configuration[configSourceIndex].target;
-                    break;
-                }
-            }
-        }
+        self.setRoomClassification = function (room_classification) {
+            self.room_classification = room_classification;
+            var sendObj = {event: 'classification', status: self.room_classifications[room_classification].label};
+            vactModel.sendRequest(sendObj);
+        };
 
-        for (var targetIndex = 0; targetIndex < self.targets.length; targetIndex++) {
-            var targetId = self.targets[targetIndex].id;
-            for (var configTargetIndex = 0; configTargetIndex < self.configuration.length; configTargetIndex++) {
-                if (self.configuration[configTargetIndex].target === targetId) {
-                    self.targets[targetIndex].source = self.configuration[configTargetIndex].source;
-                    break;
-                }
-            }
-        }
+        self.targetSelected = function (source) {
+            var newTargetId = source.target,
+                prevTargetId = source.inUse,
+                targetInUse = false;
+            //prevTargetId === 'none' ? false : true;
 
-        self.targetSelected = function (source, targetId) {
-            var sourceId = source.id;
-            //need to test for targets displaying something already
-            var inUse = false;
-
+            // a target can only have one source
             for (var tIndex = 0; tIndex < self.targets.length; tIndex++) {
-                if (self.targets[tIndex].id === targetId) {
+                if (self.targets[tIndex].id === newTargetId) {
                     if (self.targets[tIndex].source && self.targets[tIndex].source !== 'none') {
-                        inUse = true;
-                        if (window.confirm(targetId + ' is already in use. Would you like to display this instead?')) {
+                        targetInUse = true;
+
+                        if (window.confirm(newTargetId + ' is already in use. Would you like to display this instead?')) {
                             //TODO: do we need to send a message when we move something off of the display
-                          //self.targets.splice(tIndex);
-                            inUse = false;
-                            self.targets[tIndex].source = sourceId;
+                            targetInUse = false;
+                            self.targets[tIndex].source = source.id;
+                            self.targets[tIndex].inUse = source.id;
                         }
                     }
                     else {
-                        self.targets[tIndex].source = sourceId;
+                        self.targets[tIndex].source = source.id;
+                        self.targets[tIndex].inUse = source.id;
                     }
                     break;
                 }
             }
 
-            if (!inUse) {
-                var sendObj = self.buildSendObj(sourceId, targetId);
-                self.configuration.push(sendObj);
+            //TODO: also reset the prevTarget
+
+            if (!targetInUse) {
+                var sendObj = self.buildSendObj(source.id, source.target);
+               //TODO: self.configuration.push(sendObj);
                 console.log('sendObj: ' + sendObj);
             }
         };
 
-        self.sourceSelected = function (target, sourceId) {
+        self.sourceSelected = function (target) {
             //sources can be displayed on multiple targets
             var targetId = target.id;
 
-            for (var sIndex = 0; sIndex < self.sources.length; sIndex++) {
-                if (self.sources[sIndex].id === sourceId) {
-                    self.sources[sIndex].target = targetId;
-                    break;
-                }
-            }
-
-            var sendObj = self.buildSendObj(sourceId, targetId);
-            self.configuration.push(sendObj);
+            /*  for (var sIndex = 0; sIndex < self.sources.length; sIndex++) {
+             if (self.sources[sIndex].id === sourceId) {
+             self.sources[sIndex].target = targetId;
+             break;
+             }
+             }
+             */
+            var sendObj = self.buildSendObj(target.source, targetId);
+            //TODO:self.configuration.push(sendObj);
             console.log('sendObj: ' + sendObj);
         };
 
         self.buildSendObj = function (sourceId, targetId) {
-            var sendObj = {source: sourceId, target: targetId};
+            var sendObj = {event: 'drop', condition_1: sourceId, condition_2: targetId};
             vactModel.sendRequest(sendObj);
             //window.alert(sendObj);
             return sendObj;
-        };
-
-        self.filterNone = function (menuItem) {
-            return menuItem.id === 'none' ? false : true;
         };
     }
     ])
