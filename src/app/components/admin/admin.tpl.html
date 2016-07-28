@@ -1,0 +1,118 @@
+<div class="admin">
+  <div class="row configuration-type">
+    <h2>VACT Admin</h2>
+    <div class="col-sm-3">
+      <h4>Create New</h4>
+      <label>Room Type:</label>
+      <select>
+        <option value="basic">Basic</option>
+        <option value="mini">Chameleon-Mini</option>
+        <option value="chameleon">Chameleon</option>
+      </select>
+    </div>
+    <div class="col-sm-1">OR</div>
+    <div class="col-sm-8">
+      <h4>Clone from Existing</h4>
+      <select>
+        <option value="870/123">870/123</option>
+        <option value="870/123">870/166</option>
+        <option value="870/123">870/201</option>
+        <option value="870/123">870/222</option>
+        <option value="870/123">870/323</option>
+        <option value="870/123">870/334</option>
+      </select>
+    </div>
+  </div>
+  <div class="row location room-classifier">
+    <div class="col-sm-12">
+      <span class="bldg"><label>Bldg:</label><input id="bldg" type="text" maxlength="10"/></span>
+      <span class="room"><label>Room:</label><input id="room" type="text" maxlength="10"/></span>
+              <span class="room-classification"><label>Room Classification:</label>
+                  <input type="checkbox" name="roomClassification" ng-click="modifyClassification('unclassified');"/> Unclassified
+                  <input type="checkbox" name="roomClassification" ng-click="modifyClassification('classified');"/> Classified
+                  <input type="checkbox" name="roomClassification" ng-click="modifyClassification('spn');"/> SPN
+              </span>
+    </div>
+  </div>
+  <div class="row equipment-selection">
+    <div class="col-sm-3">
+      <label>Equipment Types:</label>
+      <ul class="equipment-types">
+        <li><input type="radio" name="equipment-type" class="displays" ng-click="showDisplay=!showDisplay">Displays</li>
+        <li><input type="radio" name="equipment-type" class="computers" ng-click="showComputer=!showComputer">Computers</li>
+        <li><input type="radio" name="equipment-type" class="cameras" ng-click="showCamera=!showCamera">Cameras</li>
+        <li><input type="radio" name="equipment-type" class="peripherals" ng-click="showPeripheral=!showPeripheral">Peripherals</li>
+      </ul>
+    </div>
+    <div class="col-sm-4">
+      <label>Equipment List:</label>
+      <select class="displays" ng-show="showDisplay" ng-model="display" ng-change="displayChange(display);">
+        <option value="lcd20">LCD Monitor 20</option>
+        <option value="lcd30">LCD Monitor 30</option>
+        <option value="lcd20">LCD Screen 40</option>
+        <option value="lcd20">LCD Screen 60</option>
+        <option value="lcd20">Plasma 60</option>
+        <option value="lcd20">Plasma 80</option>
+        <option value="lcd20">Projector</option>
+      </select>
+      <select class="computers" ng-show="showComputer" ng-model="computer" ng-change="computerChange(computer);">
+        <option value="laptop">Laptop</option>
+        <option value="desktop">Desktop</option>
+        <option value="tower">Tower</option>
+      </select>
+      <select class="cameras" ng-show="showCameras" ng-model="camera" ng-change="cameraChange(camera);">
+        <option value="doccam">Document Camera</option>
+        <option value="cam">Static Video Camera</option>
+        <option value="vidcam">Adjustable Video Camera</option>
+      </select>
+      <select class="peripherals" ng-show="showPeripheral" ng-model="peripherals" ng-change="peripheralsChange(peripherals);">
+        <option value="mouse">Mouse</option>
+        <option value="micophone">Microphone</option>
+        <option value="speaker">Speaker</option>
+        <option value="led">led</option>
+      </select>
+    </div>
+    <div class="col-sm-4">
+      <img src="" alt=""/>
+      <label>Equipment Specifics:</label>
+      <div><label>Type:</label>LCD Monitor 20"</div>
+      <div><label>Label:</label>LCD1</div><!--//this number will increase by 1 for each similar equipment item-->
+      <div><label>ID:</label>lcd1</div><!--//this number will increase by 1 for each similar equipment item-->
+      <div><label>Secured:</label><input type="checkbox" id="secured"/></div>
+      <div><label ng-bind="{Default Displays On:source}">Default Displays:</label><select><option value="none" selected="selected">None</option><option value="laptop1">Laptop1</option><option value="VidCam1">VidCam1</option></select></div>
+      <div><input type="button" value="Save Equipment"/><input type="button" value="Cancel"/></div>
+    </div>
+  </div>
+  <div class="row equipment-configuration">
+    <div class="col-sm-12">
+      <div>Source Items:</div>
+              <span class="equipment-item">
+                  <img src="" alt=""/>
+                  <label>Laptop1</label>
+                  <span ng-bind="Displays On:"></span>
+                  <select>
+                    <option value="none">None</option>
+                    <option value="lcd1" selected="selected">LCD1</option>
+                  </select>
+                  <input type="button" value="Modify" ng-click=""/>
+              </span>
+    </div>
+    <div class="col-sm-12">
+      <div>Target Items:</div>
+              <span class="equipment-item">
+                  <img src="" alt=""/>
+                  <label>LCD1</label>
+                  <span ng-bind="Displays:"></span>
+                  <select>
+                    <option value="none">None</option>
+                    <option value="aptop1" selected="selected">Laptop1</option>
+                  </select>
+                  <input type="button" value="Modify" ng-click=""/>
+              </span>
+    </div>
+  </div>
+  <div class="row configurtion-actions">
+    <input type="button" value="Save Room configuration"/>
+    <input type="button" class="cancel" value="Cancel"/>
+  </div>
+</div>

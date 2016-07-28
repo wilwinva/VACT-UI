@@ -30,3 +30,7 @@ img.document_camera,img.desktop,img.video_camera,img.lcd,img.plasma,img.projecto
 .camera-controls .pan .right{left:15px;top:-11px;}
 .camera-controls .zoom .in{left:0;top:4px;}
 .camera-controls .zoom .out{left:0;top:4px;}
+
+/*admin*/
+.location.room-classifier span{margin-right:20px;}
+.equipment-item{display:inline-block;border:1px solid #000;width: 100px}

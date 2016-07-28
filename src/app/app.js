@@ -50,7 +50,24 @@ angular
                             });
                       }]
                     }
-                });
+                })
+                .state('admin', {
+                  url: '/admin',
+                  templateUrl: 'app/components/admin/admin.tpl.html',
+                  controller: 'AdminCtrl as adminCtrl',
+                  resolve : {
+                    equipmentData: ['vactApiModel','$q', function (vactApiModel, $q) {
+                      console.log('in resolve');
+                      var defer = $q.defer();
+                      defer.resolve(vactApiModel.fetch('equipment'));
+
+                      return defer.promise.then(function (data) {
+                        return data;
+                      });
+                    }]
+                  }
+                })
+          ;
         }
     ])
 ;

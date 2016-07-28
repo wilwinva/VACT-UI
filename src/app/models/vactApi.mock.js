@@ -7,11 +7,12 @@
  * mockData for vactApiModel of the vactApp
  */
 angular.module('vactApp.mocks')
-    .service('vactApiModelMock', ['ROOM_CONFIG_MOCK',
-      function vactApiModelMock(ROOM_CONFIG_MOCK) {
+    .service('vactApiModelMock', ['ROOM_CONFIG_MOCK', 'EQUIPMENT_LIST_MOCK',
+      function vactApiModelMock(ROOM_CONFIG_MOCK,EQUIPMENT_LIST_MOCK) {
         var mockData =
         {
-          roomConfiguration: ROOM_CONFIG_MOCK
+          roomConfiguration: ROOM_CONFIG_MOCK,
+          equipmentList: EQUIPMENT_LIST_MOCK
         };
         console.log("mockData: "+mockData.roomConfiguration.source[0].type);
         return mockData;
