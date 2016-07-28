@@ -42,7 +42,7 @@ angular.module('vactApp')
                             targetInUse = false;
                             //iterate thru sources to reset this source to none
                             for (var sIndex = 0; sIndex < self.sources.length; sIndex++) {
-                                if (self.sources[sIndex].id == self.targets[tIndex].source) {
+                                if (self.sources[sIndex].id === self.targets[tIndex].source) {
                                     self.sources[sIndex].target = 'none';
                                     self.sources[sIndex].inUse = 'none';
                                     //TODO: send message?
