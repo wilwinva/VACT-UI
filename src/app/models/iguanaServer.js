@@ -140,8 +140,15 @@ angular.module('vactApp.models')
             console.log("VACT: Socket has been closed!");
         };
         ws.onmessage = function (message) {
+            var rcvdMsg = JSON.parse(message.data);
+            if (rcvdMsg.event && rcvdMsg.event === 'switch') {
+                console.log('Received routing switch msg switch input ' + rcvdMsg.input + ' to output ' + rcvdMsg.output);
+                console.log('TODO: update mySQL tables for routing switcher to read new config');
+            }
+            else {
             console.log("VACT: message has been received!");
-            listener(JSON.parse(message.data));
+            listener(rcvdMsg);
+            }
         };
 
         VactModel.sendRequest = function(request) {
