@@ -18,63 +18,72 @@ angular.module('vactApp.mocks')
                     'label': 'Laptop 1',
                     'id': 'laptop1',
                     'target': 'lcd2',
-                    'inUse': 'lcd2'
+                    'inUse': 'lcd2',
+                    'secured': false
                 },
                 {
                     'type': 'laptop',
                     'label': 'Laptop 2',
                     'id': 'laptop2',
                     'target': 'none',
-                    'inUse': 'none'
+                    'inUse': 'none',
+                    'secured': false
                 },
                 {
                     'type': 'laptop',
                     'label': 'Laptop 3',
                     'id': 'laptop3',
                     'target': 'none',
-                    'inUse': 'none'
+                    'inUse': 'none',
+                    'secured': false
                 },
                 {
                     'type': 'laptop',
                     'label': 'Laptop 4',
                     'id': 'laptop4',
                     'target': 'none',
-                    'inUse': 'none'
+                    'inUse': 'none',
+                    'secured': false
                 },
                 {
                     'type': 'desktop',
                     'label': 'Desktop 1',
                     'id': 'desktop1',
                     'target': 'none',
-                    'inUse': 'none'
+                    'inUse': 'none',
+                    'secured': true
                 },
                 {
                     'type': 'document_camera',
                     'label': 'Doc Cam 1',
                     'id': 'doccam1',
                     'target': 'none',
-                    'inUse': 'none'
+                    'inUse': 'none',
+                    'secured': true
                 },
                 {
                     'type': 'document_camera',
                     'label': 'Doc Cam 2',
                     'id': 'doccam2',
                     'target': 'none',
-                    'inUse': 'none'
+                    'inUse': 'none',
+                    'secured': false
                 },
                 {
                     'type': 'video_camera',
                     'label': 'Cam 1',
                     'id': 'vidcam1',
                     'target': 'lcd1',
-                    'inUse': 'lcd1'
+                    'inUse': 'lcd1',
+                    'secured': true
                 },
                 {
                     'type': 'video_camera',
                     'label': 'Cam 2',
                     'id': 'vidcam2',
                     'target': 'none',
-                    'inUse': 'none'
+                    'inUse': 'none',
+                    'secured': false
                 }
 
             ],
