@@ -16,7 +16,7 @@
 
     <div class="col-sm-12" id="sourceEquipment">
         <h4>Source Equipment</h4>
-        <span ng-repeat="source in roomCtrl.sources" class="vactButton" ng-class="{displaying:source.target}">
+        <span ng-repeat="source in roomCtrl.sources" class="vactButton" ng-class="{displaying:source.target != 'none'}">
             <vact-equipment source="source"></vact-equipment>
             {{source.label}}
             <vact-camera-remote-control camid="{{source.id}}" ng-if="source.type=='video_camera'"></vact-camera-remote-control>

@@ -29,9 +29,8 @@ angular.module('vactApp')
 
         self.targetSelected = function (source) {
             var newTargetId = source.target,
-                //prevTargetId = source.inUse,
+                prevTargetId = source.inUse,
                 targetInUse = false;
-            //prevTargetId === 'none' ? false : true;
 
             // a target can only have one source
             for (var tIndex = 0; tIndex < self.targets.length; tIndex++) {
@@ -40,43 +39,60 @@ angular.module('vactApp')
                         targetInUse = true;
 
                         if (window.confirm(newTargetId + ' is already in use. Would you like to display this instead?')) {
-                            //TODO: do we need to send a message when we move something off of the display
                             targetInUse = false;
+                            //iterate thru sources to reset this source to none
+                            for (var sIndex = 0; sIndex < self.sources.length; sIndex++) {
+                                if (self.sources[sIndex].id == self.targets[tIndex].source) {
+                                    self.sources[sIndex].target = 'none';
+                                    self.sources[sIndex].inUse = 'none';
+                                    //TODO: send message?
+                                    break;
+                                }
+                            }
                             self.targets[tIndex].source = source.id;
                             self.targets[tIndex].inUse = source.id;
+
                         }
                     }
                     else {
                         self.targets[tIndex].source = source.id;
                         self.targets[tIndex].inUse = source.id;
                     }
-                    break;
+                }
+                else if (prevTargetId !== 'none' && self.targets[tIndex].id === prevTargetId) {
+                    self.targets[tIndex].source = 'none';
+                    self.targets[tIndex].inUse = 'none';
+                    //TODO: send a message?
                 }
             }
 
-            //TODO: also reset the prevTarget
 
             if (!targetInUse) {
                 var sendObj = self.buildSendObj(source.id, source.target);
-               //TODO: self.configuration.push(sendObj);
                 console.log('sendObj: ' + sendObj);
             }
         };
 
         self.sourceSelected = function (target) {
             //sources can be displayed on multiple targets
-            var targetId = target.id;
+            var newSourceId = target.source,
+                prevSourceId = target.inUse;
 
-            /*  for (var sIndex = 0; sIndex < self.sources.length; sIndex++) {
-             if (self.sources[sIndex].id === sourceId) {
-             self.sources[sIndex].target = targetId;
-             break;
-             }
-             }
-             */
-            var sendObj = self.buildSendObj(target.source, targetId);
-            //TODO:self.configuration.push(sendObj);
-            console.log('sendObj: ' + sendObj);
+            for (var sIndex = 0; sIndex < self.sources.length; sIndex++) {
+                if (self.sources[sIndex].id === newSourceId) {
+                    self.sources[sIndex].target = target.id;
+                    self.sources[sIndex].inUse = target.id;
+
+                    var sendObj = self.buildSendObj(newSourceId, target.id);
+                    console.log('sendObj: ' + sendObj);
+                }
+                else if (self.sources[sIndex].id === prevSourceId) {
+                    self.sources[sIndex].target = 'none';
+                    self.sources[sIndex].inUse = 'none';
+                    //TODO: send message?
+                }
+            }
+
         };
 
         self.buildSendObj = function (sourceId, targetId) {

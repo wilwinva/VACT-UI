@@ -54,8 +54,7 @@ angular.module('vactApp')
       };
 
       self.findEquipmentObjByReference = function(){
-
-      }
+      };
 
       self.setEquipmentList = function(activeList){
         console.log('made it in setEquipmentList');
