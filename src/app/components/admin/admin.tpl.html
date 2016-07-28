@@ -51,22 +51,22 @@
         <select class="computers"
                 ng-show="adminCtrl.showComputers" ng-model="adminCtrl.computerSelected"
                 ng-options="computer.id as computer.label for computer in adminCtrl.computers"
-                ng-change="adminCtrl.equipmentSelected(adminCtrl.computerSelected);">
+                ng-change="adminCtrl.equipmentSelected(adminCtrl.computerSelected,'computers');">
         </select>
         <select class="displays"
                 ng-show="adminCtrl.showDisplays" ng-model="admin.displaySelected"
                 ng-options="display.id as display.label for display in adminCtrl.displays"
-                ng-change="admin.equipmentSelected(adminCtrl.displaySelected);">
+                ng-change="admin.equipmentSelected(adminCtrl.displaySelected,'displays');">
         </select>
         <select class="cameras"
                 ng-show="adminCtrl.showCameras" ng-model="adminCtrl.cameraSelected"
                 ng-options="camera.id as camera.label for camera in adminCtrl.cameras"
-                ng-change="adminCtrl.equipmentSelected(adminCtrl.cameraSelected);">
+                ng-change="adminCtrl.equipmentSelected(adminCtrl.cameraSelected,'cameras');">
         </select>
         <select class="peripherals"
                 ng-show="adminCtrl.showPeripherals" ng-model="adminCtrl.peripheralSelected"
                 ng-options="peripheral.id as peripheral.label for peripheral in adminCtrl.peripherals"
-                ng-change="adminCtrl.equipmentSelected(adminCtrl.peripheralSelected);">
+                ng-change="adminCtrl.equipmentSelected(adminCtrl.peripheralSelected,'peripheral');">
         </select>
         {{admin.computerSelected}}
       </div>
@@ -79,8 +79,8 @@
         <div><label>Type:</label>{{adminCtrl.equipmentType}}</div>
         <div><label>Label:</label>{{adminCtrl.equipmentLabel}}</div><!--//this number will increase by 1 for each similar equipment item-->
         <div><label>ID:</label>{{adminCtrl.equipmentId}}</div><!--//this number will increase by 1 for each similar equipment item-->
-        <div><label>Secured:</label><input type="checkbox" id="secured"/></div>
-        <div><input type="button" value="Save Equipment" ng-click=""/><input type="button" value="Cancel"/></div>
+        <div><label>Secured:</label><input type="checkbox" id="secured" ng-click="adminCtrl.equipmentSecured!=adminCtrl.equipmentSecured"/></div>
+        <div><input type="button" value="Save Equipment" ng-click="adminCtrl.saveEquipment();" /><input type="button" value="Cancel"/></div>
       </div>
     </div>
   </div>
