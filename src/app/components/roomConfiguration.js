@@ -29,7 +29,7 @@ angular.module('vactApp')
 
         self.targetSelected = function (source) {
             var newTargetId = source.target,
-                prevTargetId = source.inUse,
+                //prevTargetId = source.inUse,
                 targetInUse = false;
             //prevTargetId === 'none' ? false : true;
 

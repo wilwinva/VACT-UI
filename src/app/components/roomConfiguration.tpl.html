@@ -31,15 +31,15 @@
 
     <div class="col-sm-12" id="targetEquipment">
         <h4>Target Equipment</h4>
-          <span ng-repeat="target in roomCtrl.targets" class="vactButton" ng-class="{displaying:target.source}">
-            <vact-equipment source="target"></vact-equipment>
-            {{target.label}}
-            <div class="display">Displaying</div>
-            <select ng-model="target.source"
-                    ng-options="source.id as source.label for source in roomCtrl.sources"
-                    ng-change="roomCtrl.sourceSelected(target)">
-                <option value="">None</option>
-            </select>
-          </span>
+        <span ng-repeat="target in roomCtrl.targets" class="vactButton" ng-class="{displaying:target.source}">
+          <vact-equipment source="target"></vact-equipment>
+          {{target.label}}
+          <div class="display">Displaying</div>
+          <select ng-model="target.source"
+                  ng-options="source.id as source.label for source in roomCtrl.sources"
+                  ng-change="roomCtrl.sourceSelected(target)">
+              <option value="">None</option>
+          </select>
+        </span>
     </div>
 </div>

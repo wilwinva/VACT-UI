@@ -32,5 +32,8 @@ img.document_camera,img.desktop,img.video_camera,img.lcd,img.plasma,img.projecto
 .camera-controls .zoom .out{left:0;top:4px;}
 
 /*admin*/
-.location.room-classifier span{margin-right:20px;}
-.equipment-item{display:inline-block;border:1px solid #000;width: 100px}
+#admin > .row{margin:5px 0 10px;padding:5px 0;border-bottom:1px solid #000;}
+#admin .location.room-classifier span{margin-right:20px;}
+#admin .equipment-item{display:inline-block;border:1px solid #000;width: 100px}
+#admin .equipment-lists, #admin .equipment-specifics{padding-left:10px;}
+#admin .equipment-lists select{display:block;}
