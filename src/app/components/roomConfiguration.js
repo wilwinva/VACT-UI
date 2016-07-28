@@ -12,19 +12,37 @@
 angular.module('vactApp')
     .controller('RoomConfigurationCtrl', ['vactModel', 'equipmentData', function (vactModel, equipmentData) {
         var self = this;
+        self.room_properties = equipmentData;
+
         self.room_classification = 0;
         self.room_classifications = [{"label": "Unclassified", "id": 0}, {
             "label": "Classified",
             "id": 1
         }, {"label": "SPN", "id": 2}];
-        self.room_properties = equipmentData;
-        self.sources = self.room_properties.source;
-        self.targets = self.room_properties.target;
+
+        self.targets = equipmentData.target;
+        self.sources = equipmentData.source;
+        self.secureSources =[];
+        for (var sIndex = 0; sIndex < equipmentData.source.length; sIndex++) {
+            if(equipmentData.source[sIndex].secured)
+            {
+                self.secureSources.push(equipmentData.source[sIndex]);
+            }
+        }
 
         self.setRoomClassification = function (room_classification) {
             self.room_classification = room_classification;
             var sendObj = {event: 'classification', status: self.room_classifications[room_classification].label};
             vactModel.sendRequest(sendObj);
+            if(room_classification === 0)
+            {
+                self.sources = equipmentData.source;
+            }
+            else
+            {
+                self.sources = self.secureSources;
+            }
+            //TODO: should we reset the targets and sources so nothing is mapped?
         };
 
         self.targetSelected = function (source) {
