@@ -20,9 +20,22 @@ angular.module('vactApp')
       self.cameras = self.equipmentLists.cameras;
       self.peripherals = self.equipmentLists.peripherals;
       self.preloadedConfigurations = self.equipmentLists.preloadedConfigurations;
+      self.roomConfigurations = self.equipmentLists.rooms;
 
-      self.sources = [{'id':'vidcam_1','type':'video_camera','label':'Cam 1','target':'lcd1'}];//to hold the equipment objects added
+      self.configurationTypes = [{'label':'Custom','id':'custom'},{'label':'Basic','id':'basic'},{'label':'Chameleon-Mini','id':'chameleon-mini'},{'label':'Chameleon','id':'chameleon'}]
+      self.configurationType = 'custom';
+      self.roomConfiguration ='';
+      self.unclassified = false;
+      self.classified = false;
+      self.spn = false;
+
+      self.sources = [];
+      self.targets = [];
+
+/*
+      self.sources = [{'id':'vidcam_1','type':'video_camera','label':'Cam 1','target':'lcd_1'}];//to hold the equipment objects added
       self.targets = [{'id':'lcd_1','type':'lcd','label':'LCD 1','source':'vidcam_1'},{'id':'lcd_2','type':'lcd','label':'LCD 2','source':'none'}];//to hold the equipment objects added
+*/
 
       self.computerSelected = '';
       self.displaySelected = '';
@@ -138,6 +151,41 @@ angular.module('vactApp')
         self.showPeriphals = false;
         self.showEquipmentSpecifics = false;
       };
+
+      self.loadConfiguration = function(configurationType){
+        var preloadConfiguration = [];
+        switch(configurationType){
+          case 'custom':
+            self.sources = [];
+            self.targets = [];
+            break;
+          case 'basic':
+            preloadConfiguration = self.preloadedConfigurations.basic;
+            break;
+          case 'chameleon-mini':
+            preloadConfiguration = self.preloadedConfigurations.mini;
+            break;
+          case 'chameleon':
+            preloadConfiguration = self.preloadedConfigurations.chameleon;
+            break;
+        }
+        self.sources = preloadConfiguration.source;
+        self.targets = preloadConfiguration.target;
+      }
+      self.loadRoomConfiguration = function(room){
+        var preloadConfiguration =[];
+        switch(room){
+          case '870/123':
+            preloadConfiguration = self.roomConfigurations["870/123"];
+            break;
+        }
+        self.sources = preloadConfiguration.source;
+        self.targets = preloadConfiguration.target;
+        self.unclassified = preloadConfiguration.classification.unclassified;
+        self.classified = preloadConfiguration.classification.classified;
+        self.spn = preloadConfiguration.classification.spn;
+
+      }
     }
-    ])
+  ])
 ;

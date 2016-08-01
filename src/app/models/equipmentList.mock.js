@@ -87,196 +87,252 @@ angular.module('vactApp.mocks')
                     'id': 'speaker'
                 }
             ],
-            'preloadedConfigurations':[
-                {
-                    'Empty':[]
+            'preloadedConfigurations':
+            {
+              'custom':{
+                    'vactType':'custom',
+                    'source':{},
+                    'target':{}
                 },
+              'basic':
                 {
-                    'Basic':[
-                        {
-                          'vactType':'basic'
-                        },
-                        {
-                            'source': [
-                                {
-                                    'type': 'video_camera',
-                                    'label': 'Cam 1',
-                                    'id': 'vidcam1',
-                                    'target': 'lcd1',
-                                    'inUse': 'lcd1'
-                                }
-                            ]
-                        },
-                        {
-                            'target': [
-                                {
-                                    'type': 'lcd',
-                                    'label': 'LCD 1',
-                                    'id': 'lcd1',
-                                    'source': 'vidcam1',
-                                    'inUse': 'vidcam1'
-                                },
-                                {
-                                    'type': 'lcd',
-                                    'label': 'LCD 2',
-                                    'id': 'lcd2',
-                                    'source': 'none',
-                                    'inUse': 'none'
-                                }
-                            ]
-                        }
-                    ]
+                  'vactType':'basic',
+                  'source': [
+                    {
+                      'type': 'video_camera',
+                      'label': 'Cam 1',
+                      'id': 'vidcam_1',
+                      'target': 'lcd_1',
+                      'inUse': 'lcd_1'
+                    }
+                  ],
+                  'target': [
+                    {
+                      'type': 'lcd',
+                      'label': 'LCD 1',
+                      'id': 'lcd_1',
+                      'source': 'vidcam_1',
+                      'inUse': 'vidcam_1'
+                    },
+                    {
+                      'type': 'lcd',
+                      'label': 'LCD 2',
+                      'id': 'lcd_2',
+                      'source': 'none',
+                      'inUse': 'none'
+                    }
+                  ]
                 },
+              'mini':
                 {
-                    'Chameleon-Mini':[
-                        {
-                            'vactType':'chameleon-mini'
-                        },
-                        {
-                            'source': [
-                                {
-                                    'type': 'desktop',
-                                    'label': 'Desktop 1',
-                                    'id': 'desktop1',
-                                    'target': 'none',
-                                    'inUse': 'none'
-                                },
-                                {
-                                    'type': 'video_camera',
-                                    'label': 'Cam 1',
-                                    'id': 'vidcam1',
-                                    'target': 'lcd1',
-                                    'inUse': 'lcd1'
-                                }
-                            ]
-                        },
-                        {
-                            'target': [
-                                {
-                                    'type': 'lcd',
-                                    'label': 'LCD 1',
-                                    'id': 'lcd1',
-                                    'source': 'vidcam1',
-                                    'inUse': 'vidcam1'
-                                },
-                                {
-                                    'type': 'lcd',
-                                    'label': 'LCD 2',
-                                    'id': 'lcd2',
-                                    'source': 'laptop1',
-                                    'inUse': 'laptop1'
-                                }
-                            ]
-                        }
-                    ]
+                  'vactType':'chameleon-mini',
+                  'source': [
+                    {
+                      'type': 'desktop',
+                      'label': 'Desktop 1',
+                      'id': 'desktop_1',
+                      'target': 'lcd_2',
+                      'inUse': 'lcd_2'
+                    },
+                    {
+                      'type': 'video_camera',
+                      'label': 'Cam 1',
+                      'id': 'vidcam_1',
+                      'target': 'lcd_1',
+                      'inUse': 'lcd_1'
+                    }
+                    ],
+                    'target': [
+                     {
+                      'type': 'lcd',
+                      'label': 'LCD 1',
+                      'id': 'lcd_1',
+                      'source': 'vidcam_1',
+                      'inUse': 'vidcam_1'
+                    },
+                    {
+                      'type': 'lcd',
+                      'label': 'LCD 2',
+                      'id': 'lcd_2',
+                      'source': 'desktop_1',
+                      'inUse': 'desktop_1'
+                    }
+                  ]
                 },
+              'chameleon':
                 {
-                    'Chameleon':[
-                        {
-                            'vactType': 'chameleon'
-                        },
-                        {
-                            'source': [
-                                {
-                                    'type': 'laptop',
-                                    'label': 'Laptop 1',
-                                    'id': 'laptop1',
-                                    'target': 'lcd2',
-                                    'inUse': 'lcd2'
-                                },
-                                {
-                                    'type': 'laptop',
-                                    'label': 'Laptop 2',
-                                    'id': 'laptop2',
-                                    'target': 'none',
-                                    'inUse': 'none'
-                                },
-                                {
-                                    'type': 'laptop',
-                                    'label': 'Laptop 3',
-                                    'id': 'laptop3',
-                                    'target': 'none',
-                                    'inUse': 'none'
-                                },
-                                {
-                                    'type': 'laptop',
-                                    'label': 'Laptop 4',
-                                    'id': 'laptop4',
-                                    'target': 'none',
-                                    'inUse': 'none'
-                                },
-                                {
-                                    'type': 'desktop',
-                                    'label': 'Desktop 1',
-                                    'id': 'desktop1',
-                                    'target': 'none',
-                                    'inUse': 'none'
-                                },
-                                {
-                                    'type': 'document_camera',
-                                    'label': 'Doc Cam 1',
-                                    'id': 'doccam1',
-                                    'target': 'none',
-                                    'inUse': 'none'
-                                },
-                                {
-                                    'type': 'document_camera',
-                                    'label': 'Doc Cam 2',
-                                    'id': 'doccam2',
-                                    'target': 'none',
-                                    'inUse': 'none'
-                                },
-                                {
-                                    'type': 'video_camera',
-                                    'label': 'Cam 1',
-                                    'id': 'vidcam1',
-                                    'target': 'lcd1',
-                                    'inUse': 'lcd1'
-                                },
-                                {
-                                    'type': 'video_camera',
-                                    'label': 'Cam 2',
-                                    'id': 'vidcam2',
-                                    'target': 'none',
-                                    'inUse': 'none'
-                                }
-                            ]
-                        },
-                        {
-                            'target': [
-                                {
-                                    'type': 'lcd',
-                                    'label': 'LCD 1',
-                                    'id': 'lcd1',
-                                    'source': 'vidcam1',
-                                    'inUse': 'vidcam1'
-                                },
-                                {
-                                    'type': 'lcd',
-                                    'label': 'LCD 2',
-                                    'id': 'lcd2',
-                                    'source': 'laptop1',
-                                    'inUse': 'laptop1'
-                                },
-                                {
-                                    'type': 'plasma',
-                                    'label': 'Plasma 1',
-                                    'id': 'plasma1',
-                                    'source': 'none',
-                                    'inUse': 'none'
-                                },
-                                {
-                                    'type': 'projector',
-                                    'label': 'Projector 1',
-                                    'id': 'projector1',
-                                    'source': 'none',
-                                    'inUse': 'none'
-                                }
-                            ]
-                        }
+                  'vactType': 'chameleon',
+                  'source': [
+                    {
+                      'type': 'laptop',
+                      'label': 'Laptop 1',
+                      'id': 'laptop_1',
+                      'target': 'lcd_2',
+                      'inUse': 'lcd_2'
+                    },
+                    {
+                      'type': 'laptop',
+                      'label': 'Laptop 2',
+                      'id': 'laptop_2',
+                      'target': 'none',
+                      'inUse': 'none'
+                    },
+                    {
+                      'type': 'laptop',
+                      'label': 'Laptop 3',
+                      'id': 'laptop_3',
+                      'target': 'none',
+                      'inUse': 'none'
+                    },
+                    {
+                      'type': 'laptop',
+                      'label': 'Laptop 4',
+                      'id': 'laptop_4',
+                      'target': 'none',
+                      'inUse': 'none'
+                    },
+                    {
+                      'type': 'desktop',
+                      'label': 'Desktop 1',
+                      'id': 'desktop_1',
+                      'target': 'none',
+                      'inUse': 'none'
+                    },
+                    {
+                      'type': 'document_camera',
+                      'label': 'Doc Cam 1',
+                      'id': 'doccam_1',
+                      'target': 'none',
+                      'inUse': 'none'
+                    },
+                    {
+                      'type': 'document_camera',
+                      'label': 'Doc Cam 2',
+                      'id': 'doccam_2',
+                      'target': 'none',
+                      'inUse': 'none'
+                    },
+                    {
+                      'type': 'video_camera',
+                      'label': 'Cam 1',
+                      'id': 'vidcam_1',
+                      'target': 'lcd_1',
+                      'inUse': 'lcd_1'
+                    },
+                    {
+                      'type': 'video_camera',
+                      'label': 'Cam 2',
+                      'id': 'vidcam_2',
+                      'target': 'none',
+                      'inUse': 'none'
+                    }
+                    ],
+                  'target': [
+                    {
+                      'type': 'lcd',
+                      'label': 'LCD 1',
+                      'id': 'lcd_1',
+                      'source': 'vidcam_1',
+                      'inUse': 'vidcam_1'
+                    },
+                    {
+                      'type': 'lcd',
+                      'label': 'LCD 2',
+                      'id': 'lcd_2',
+                      'source': 'laptop_1',
+                      'inUse': 'laptop_1'
+                    },
+                    {
+                      'type': 'plasma',
+                      'label': 'Plasma 1',
+                      'id': 'plasma_1',
+                      'source': 'none',
+                      'inUse': 'none'
+                    },
+                    {
+                      'type': 'projector',
+                      'label': 'Projector 1',
+                      'id': 'projector_1',
+                      'source': 'none',
+                      'inUse': 'none'
+                    }
+                  ]
+                }
 
+            },
+            'rooms':{
+                '870/123':
+                  {
+                    'vactType': 'chameleon',
+                    'classification': {'unclassified':true,'classified':true,'spn':false},
+                    'source': [
+                        {
+                            'type': 'laptop',
+                            'label': 'Laptop 1',
+                            'id': 'laptop_1',
+                            'target': 'lcd_2',
+                            'inUse': 'lcd_2'
+                        },
+                        {
+                            'type': 'laptop',
+                            'label': 'Laptop 2',
+                            'id': 'laptop_2',
+                            'target': 'none',
+                            'inUse': 'none'
+                        },
+                        {
+                            'type': 'desktop',
+                            'label': 'Desktop 1',
+                            'id': 'desktop_1',
+                            'target': 'none',
+                            'inUse': 'none'
+                        },
+                        {
+                            'type': 'document_camera',
+                            'label': 'Doc Cam 1',
+                            'id': 'doccam_1',
+                            'target': 'none',
+                            'inUse': 'none'
+                        },
+                        {
+                            'type': 'video_camera',
+                            'label': 'Cam 1',
+                            'id': 'vidcam_1',
+                            'target': 'lcd_1',
+                            'inUse': 'lcd_1'
+                        },
+                        {
+                            'type': 'video_camera',
+                            'label': 'Cam 2',
+                            'id': 'vidcam_2',
+                            'target': 'none',
+                            'inUse': 'none'
+                        }
+                    ],
+                    'target': [
+                        {
+                            'type': 'lcd',
+                            'label': 'LCD 1',
+                            'id': 'lcd_1',
+                            'source': 'vidcam_1',
+                            'inUse': 'vidcam_1'
+                        },
+                        {
+                            'type': 'lcd',
+                            'label': 'LCD 2',
+                            'id': 'lcd_2',
+                            'source': 'laptop_1',
+                            'inUse': 'laptop_1'
+                        },
+                        {
+                            'type': 'plasma',
+                            'label': 'Plasma 1',
+                            'id': 'plasma_1',
+                            'source': 'none',
+                            'inUse': 'none'
+                        }
                     ]
                 }
-            ]
+            }
         }
     );

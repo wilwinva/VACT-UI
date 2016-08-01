@@ -3,17 +3,18 @@
     <h2>VACT Admin</h2>
     <div class="col-sm-5">
       <label>Create New Configuration as </label>
-      <select>
-        <option value="empty">Empty</option>
-        <option value="basic">Basic</option>
-        <option value="mini">Chameleon-Mini</option>
-        <option value="chameleon">Chameleon</option>
+      <select ng-model="adminCtrl.configurationType"
+              ng-options="configurationType.id as configurationType.label for configurationType in adminCtrl.configurationTypes"
+              ng-change="adminCtrl.loadConfiguration(adminCtrl.configurationType);">
       </select>
     </div>
     <div class="col-sm-1">OR</div>
     <div class="col-sm-6">
       <label>Clone Configuration from Existing Room</label>
-      <select>
+      <select ng-model="adminCtrl.roomConfiguration"
+          ng-change="adminCtrl.loadRoomConfiguration(adminCtrl.roomConfiguration);"
+      >
+        <option value="none" selected="selected"></option>
         <option value="870/123">870/123</option>
         <option value="870/123">870/166</option>
         <option value="870/123">870/201</option>
@@ -29,9 +30,9 @@
       <span class="room"><label>Room:</label><input id="room" type="text" maxlength="10"/></span>
       <span class="room-classification">
         <label>Room Classification:</label>
-        <input type="checkbox" name="roomClassification" ng-click="modifyClassification('unclassified');"/> Unclassified
-        <input type="checkbox" name="roomClassification" ng-click="modifyClassification('classified');"/> Classified
-        <input type="checkbox" name="roomClassification" ng-click="modifyClassification('spn');"/> SPN
+        <input type="checkbox" name="roomClassification" ng-click="modifyClassification('unclassified');" ng-model="adminCtrl.unclassified" ng-checked="adminCtrl.unclassified"/> Unclassified
+        <input type="checkbox" name="roomClassification" ng-click="modifyClassification('classified');" ng-model="adminCtrl.classified" ng-checked="adminCtrl.classified"/> Classified
+        <input type="checkbox" name="roomClassification" ng-click="modifyClassification('spn');" ng-model="adminCtrl.spn" ng-checked="adminCtrl.spn"/> SPN
       </span>
     </div>
   </div>
@@ -109,7 +110,7 @@
         <vact-equipment source="target"></vact-equipment>
         {{source.label}}
         <div class="display">Displaying</div>
-        <select ng-model="targetsource"
+        <select ng-model="target.source"
                 ng-options="source.id as source.label for source in adminCtrl.sources"
                 ng-change="adminCtrl.sourceSelected(target)">
           <option value="">None</option>
