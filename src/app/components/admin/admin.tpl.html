@@ -108,7 +108,7 @@
       <h4>Target Equipment</h4>
       <span ng-repeat="target in adminCtrl.targets" class="vactButton" ng-class="{displaying:source.source != 'none'}">
         <vact-equipment source="target"></vact-equipment>
-        {{source.label}}
+        {{target.label}}
         <div class="display">Displaying</div>
         <select ng-model="target.source"
                 ng-options="source.id as source.label for source in adminCtrl.sources"

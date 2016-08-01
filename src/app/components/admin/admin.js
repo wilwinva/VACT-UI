@@ -150,6 +150,12 @@ angular.module('vactApp')
         self.showCameras = false;
         self.showPeriphals = false;
         self.showEquipmentSpecifics = false;
+        self.addAnother = false;
+        self.computerSelected = '';
+        self.displaySelected = '';
+        self.cameraSelected = '';
+        self.peripheralSelected = '';
+
       };
 
       self.loadConfiguration = function(configurationType){

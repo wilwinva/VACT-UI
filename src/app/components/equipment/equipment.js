@@ -39,6 +39,9 @@ angular.module('vactApp')
           case 'video_camera':
             self.imageSrc += 'cam.png';
             break;
+          case 'monitor':
+            self.imageSrc += 'monitor.png';
+            break;
           case 'lcd':
             self.imageSrc += 'monitor.png';
             break;
