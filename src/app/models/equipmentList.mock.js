@@ -46,33 +46,18 @@ angular.module('vactApp.mocks')
             'displays': [
                 {
                     'type': 'monitor',
-                    'label': 'Monitor 20"',
-                    'id': 'monitor20'
-                },
-                {
-                    'type': 'monitor',
-                    'label': 'Monitor 30"',
-                    'id': 'monitor30'
+                    'label': 'Monitor',
+                    'id': 'monitor'
                 },
                 {
                     'type': 'lcd',
-                    'label': 'LCD 40"',
-                    'id': 'lcd40'
-                },
-                {
-                    'type': 'lcd',
-                    'label': 'LCD 60"',
-                    'id': 'lcd60'
+                    'label': 'LCD',
+                    'id': 'lcd'
                 },
                 {
                     'type': 'plasma',
-                    'label': 'Plasma 60"',
-                    'id': 'plasma60'
-                },
-                {
-                    'type': 'plasma',
-                    'label': 'Plasma 80"',
-                    'id': 'plasma80'
+                    'label': 'Plasma',
+                    'id': 'plasma'
                 },
                 {
                     'type': 'projector',

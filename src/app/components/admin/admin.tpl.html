@@ -39,10 +39,10 @@
     <div class="col-sm-3">
       <label>Equipment Types:</label>
       <ul class="equipment-types">
-        <li><input type="radio" name="equipment-type" class="computers" ng-click="adminCtrl.showComputers=true;adminCtrl.showDisplays=false;adminCtrl.showCameras=false;adminCtrl.showPeripherals=false;">Computers</li>
-        <li><input type="radio" name="equipment-type" class="displays" ng-click="adminCtrl.showComputers=false;adminCtrl.showDisplays=true;adminCtrl.showCameras=false;adminCtrl.showPeripherals=false;">Displays</li>
-        <li><input type="radio" name="equipment-type" class="cameras" ng-click="adminCtrl.showComputers=false;adminCtrl.showDisplays=false;adminCtrl.showCameras=true;adminCtrl.showPeripherals=false;">Cameras</li>
-        <li><input type="radio" name="equipment-type" class="peripherals" ng-click="adminCtrl.showComputers=false;adminCtrl.showDisplays=false;adminCtrl.showCameras=false;adminCtrl.showPeripherals=true;">Peripherals</li>
+        <li><input type="radio" name="equipment-type" class="computers" ng-click="adminCtrl.setEquipmentList();adminCtrl.showComputers=true;">Computers</li>
+        <li><input type="radio" name="equipment-type" class="displays" ng-click="adminCtrl.setEquipmentList();adminCtrl.showDisplays=true;">Displays</li>
+        <li><input type="radio" name="equipment-type" class="cameras" ng-click="adminCtrl.setEquipmentList();adminCtrl.showCameras=true;adminCtrl.showPeripherals=false;">Cameras</li>
+        <li><input type="radio" name="equipment-type" class="peripherals" ng-click="adminCtrl.setEquipmentList();adminCtrl.showPeripherals=true;">Peripherals</li>
       </ul>
     </div>
     <div class="col-sm-4">
@@ -50,22 +50,22 @@
       <div class="equipment-lists">
         <select class="computers"
                 ng-show="adminCtrl.showComputers" ng-model="adminCtrl.computerSelected"
-                ng-options="computer.id as computer.label for computer in adminCtrl.computers"
+                ng-options="computer.type as computer.label for computer in adminCtrl.computers"
                 ng-change="adminCtrl.equipmentSelected(adminCtrl.computerSelected,'computers');">
         </select>
         <select class="displays"
-                ng-show="adminCtrl.showDisplays" ng-model="admin.displaySelected"
-                ng-options="display.id as display.label for display in adminCtrl.displays"
-                ng-change="admin.equipmentSelected(adminCtrl.displaySelected,'displays');">
+                ng-show="adminCtrl.showDisplays" ng-model="adminCtrl.displaySelected"
+                ng-options="display.type as display.label for display in adminCtrl.displays"
+                ng-change="adminCtrl.equipmentSelected(adminCtrl.displaySelected,'displays');">
         </select>
         <select class="cameras"
                 ng-show="adminCtrl.showCameras" ng-model="adminCtrl.cameraSelected"
-                ng-options="camera.id as camera.label for camera in adminCtrl.cameras"
+                ng-options="camera.type as camera.label for camera in adminCtrl.cameras"
                 ng-change="adminCtrl.equipmentSelected(adminCtrl.cameraSelected,'cameras');">
         </select>
         <select class="peripherals"
                 ng-show="adminCtrl.showPeripherals" ng-model="adminCtrl.peripheralSelected"
-                ng-options="peripheral.id as peripheral.label for peripheral in adminCtrl.peripherals"
+                ng-options="peripheral.type as peripheral.label for peripheral in adminCtrl.peripherals"
                 ng-change="adminCtrl.equipmentSelected(adminCtrl.peripheralSelected,'peripheral');">
         </select>
         {{admin.computerSelected}}
@@ -80,33 +80,39 @@
         <div><label>Label:</label>{{adminCtrl.equipmentLabel}}</div><!--//this number will increase by 1 for each similar equipment item-->
         <div><label>ID:</label>{{adminCtrl.equipmentId}}</div><!--//this number will increase by 1 for each similar equipment item-->
         <div><label>Secured:</label><input type="checkbox" id="secured" ng-click="adminCtrl.equipmentSecured!=adminCtrl.equipmentSecured"/></div>
-        <div><input type="button" value="Save Equipment" ng-click="adminCtrl.saveEquipment();" /><input type="button" value="Cancel"/></div>
+        <div>
+          <input type="button" value="Save Equipment" ng-click="adminCtrl.saveEquipment();"  ng-hide="adminCtrl.addAnother"/>
+          <input type="button" value="Save another {{adminCtrl.equipmentType}}" ng-click="adminCtrl.addAnotherEquipment();" ng-show="adminCtrl.addAnother" />
+          <input type="button" value="Cancel" ng-click="adminCtrl.resetEquipment();"/>
+        </div>
       </div>
     </div>
   </div>
   <div class="row equipment-configuration">
     <div class="col-sm-12" id="sourceEquipment">
       <h4>Source Equipment</h4>
-      <span class="vactButton">
-          <img class="laptop" src="/images/laptop.png" alt="laptop"/>
-          Laptop 1
-          <div class="display">Displayed on</div>
-          <select>
-            <option value="none">None</option>
-            <option value="lcd1" selected="selected">LCD1</option>
-          </select>
-          <input type="button" value="Modify" ng-click=""/>
+      <span ng-repeat="source in adminCtrl.sources" class="vactButton" ng-class="{displaying:source.target != 'none'}">
+        <vact-equipment source="source"></vact-equipment>
+        {{source.label}}
+        <div class="display">Displayed on</div>
+        <select ng-model="source.target"
+                ng-options="target.id as target.label for target in adminCtrl.targets"
+                ng-change="roomCtrl.targetSelected(source)">
+          <option value="">None</option>
+        </select>
+        <input type="button" value="Modify" ng-click=""/>
       </span>
     </div>
     <div class="col-sm-12" id="targetEquipment">
       <h4>Target Equipment</h4>
-      <span class="vactButton">
-        <img class="lcd" src="/images/monitor.png" alt="lcd"/>
-        LCD 1
+      <span ng-repeat="target in adminCtrl.targets" class="vactButton" ng-class="{displaying:source.source != 'none'}">
+        <vact-equipment source="target"></vact-equipment>
+        {{source.label}}
         <div class="display">Displaying</div>
-        <select>
-          <option value="none">None</option>
-          <option value="laptop1" selected="selected">Laptop1</option>
+        <select ng-model="targetsource"
+                ng-options="source.id as source.label for source in adminCtrl.sources"
+                ng-change="adminCtrl.sourceSelected(target)">
+          <option value="">None</option>
         </select>
         <input type="button" value="Modify" ng-click=""/>
       </span>
