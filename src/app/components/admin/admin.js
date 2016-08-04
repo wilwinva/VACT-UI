@@ -10,8 +10,9 @@
  * Web Socket Service
  */
 angular.module('vactApp')
-    .controller('AdminCtrl', ['vactModel', 'equipmentList', function (vactModel, equipmentList) {
+    .controller('AdminCtrl', ['vactModel', 'equipmentList', 'INSTALLED', function (vactModel, equipmentList, INSTALLED) {
       var self = this;
+      self.isClient = INSTALLED.isClient;
 //      console.log('made it in adminCtrl');
       self.roomState = '';
       self.roomStateOptions = [{'label':'Validate a room','id':'validation'},{'label':'Create a room configuration','id':'createConfiguration'},{'label':'Manage a room configuration','id':'manageConfiguration'}];
@@ -25,10 +26,17 @@ angular.module('vactApp')
   /*room validation method/properties - start*/
       self.activeRoom = equipmentList.activeRoom;
       self.validateRooms = [{'label':'870/123','id':'870/123'},{'label':'870/166','id':'870/166'},{'label':'870/201','id':'870/201'},{'label':'870/222','id':'885/222'},{'label':'870/334','id':'885/334'},{'label':'885/109','id':'885/109'},{'label':'885/110','id':'885/110'}];
+      if( self.isClient){
+        self.activeRoom = INSTALLED.bldg + "/" + INSTALLED.room;
+      }
+
       self.openRoomSocket = function(room){
         self.activeRoom = room;
-        //window.alert(room);
       };
+
+      if( self.isClient){
+        self.openRoomSocket(self.activeRoom);
+      }
       self.equipmentTemps = [{'label':'S4','data':98},{'label':'Tower 1','data':102},{'label':'Tower 2','data':103},{'label':'Stack','data':110}];
       self.getTemps = false;
 

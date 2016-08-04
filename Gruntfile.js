@@ -93,8 +93,13 @@ module.exports = function (grunt) {
                         },
                         ENV: {
                             iguana_port: 'TODO'
+                        },
+                        'INSTALLED': {
+                            'isClient':true,
+                            'bldg':'870',
+                            'room':'123'
                         }
-                    },
+                    }
                 },
 
                 // Environment targets

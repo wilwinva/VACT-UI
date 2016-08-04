@@ -9,15 +9,20 @@
   </div>
   <div id="validation" ng-show="adminCtrl.roomState === 'validation'">
     <div class="row roomValidation">
-      <div class="col-sm-5">
-        <label>Select a room </label>
-        <select ng-model="adminCtrl.roomConfiguration"
+      <div class="col-sm-5" ng-if="!adminCtrl.isClient">
+        <label>Select a bldg/room </label>
+        <select ng-model="adminCtrl.activeRoom"
                 ng-options="room.id as room.label for room in adminCtrl.validateRooms"
-                ng-change="adminCtrl.openRoomSocket(adminCtrl.roomConfiguration);">
+                ng-change="adminCtrl.openRoomSocket(adminCtrl.activeRoom);">
         </select>
       </div>
+      <div class="col-sm-5" ng-if="adminCtrl.isClient">
+        <label>Active room: </label>
+        <span ng-bind="adminCtrl.activeRoom">
+        </span>
+      </div>
     </div>
-    <div class="row roomValidation" ng-show="adminCtrl.roomConfiguration">
+    <div class="row roomValidation" ng-show="adminCtrl.activeRoom">
       <div class="row">
         <div class="col-sm-12 updateIguana">
           <div class="currentIguanaVersion">
