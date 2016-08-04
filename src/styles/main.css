@@ -10,6 +10,12 @@ h4 .room-type{display:none;}
 #content .classified h2{color:red;}
 #content .spn h2{color:blue;}
 
+table{margin-bottom:20px;}
+table .odd{background-color:#eee;}
+table .even{background-color:#ccc;}
+table label{color:#000!important;}
+
+
 #sourceEquipment,#targetEquipment{margin-bottom:20px;}
 .vactButton{display:inline-block;width:110px;margin:0 10px 10px 0;text-align:center;border:1px solid #000;}
 .vactButton img{width:75px;margin-bottom:5px;margin-top:10px;}
@@ -31,6 +37,9 @@ img.document_camera,img.desktop,img.video_camera,img.lcd,img.plasma,img.projecto
 .camera-controls .zoom .in{left:0;top:4px;}
 .camera-controls .zoom .out{left:0;top:4px;}
 
+#validation, #configuration{margin-top:20px;}
+
+.configuration-type{border-bottom:1px solid #000;margin-bottom:8px;padding-bottom:8px;}
 /*admin*/
 #admin > .row{margin:5px 0 10px;padding:5px 0;border-bottom:1px solid #000;}
 #admin .location.room-classifier span{margin-right:20px;}
@@ -38,4 +47,7 @@ img.document_camera,img.desktop,img.video_camera,img.lcd,img.plasma,img.projecto
 #admin .equipment-lists, #admin .equipment-specifics{padding-left:10px;}
 #admin .equipment-lists select{display:block;}
 
-#admin hr{border-color:#000;margin:16px 0;}
+#validation .roomValidation table{width:100%;}
+#validation .roomValidation table th,#validation .roomValidation table td{width:50%;padding:5px;}
+#validation .roomValidation.row .row{margin-bottom:20px;}
+#validation .roomValidation .updateIguana span{margin-right:30px;}

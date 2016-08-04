@@ -12,7 +12,69 @@
 angular.module('vactApp')
     .controller('AdminCtrl', ['vactModel', 'equipmentList', function (vactModel, equipmentList) {
       var self = this;
-      console.log('made it in adminCtrl');
+//      console.log('made it in adminCtrl');
+      self.roomState = '';
+      self.roomStateOptions = [{'label':'Validate a room','id':'validation'},{'label':'Create a room configuration','id':'createConfiguration'},{'label':'Manage a room configuration','id':'manageConfiguration'}];
+      self.loadRoomState = function(roomState){
+        self.roomState = roomState;
+        self.sources = [];
+        self.targets = [];
+        self.roomConfiguration = '';
+      };
+
+  /*room validation method/properties - start*/
+      self.activeRoom = equipmentList.activeRoom;
+      self.validateRooms = [{'label':'870/123','id':'870/123'},{'label':'870/166','id':'870/166'},{'label':'870/201','id':'870/201'},{'label':'870/222','id':'885/222'},{'label':'870/334','id':'885/334'},{'label':'885/109','id':'885/109'},{'label':'885/110','id':'885/110'}];
+      self.openRoomSocket = function(room){
+        self.activeRoom = room;
+        //window.alert(room);
+      };
+      self.equipmentTemps = [{'label':'S4','data':98},{'label':'Tower 1','data':102},{'label':'Tower 2','data':103},{'label':'Stack','data':110}];
+      self.getTemps = false;
+
+      self.getTempData = function() {
+        if (self.getTemps) {
+          self.getTemps = false;//hide temps
+        } else {
+          //ajax in room equipment temps
+          console.log('ajax in room equipment temps');
+          self.getTemps = true;
+        }
+      };
+
+      self.equipmentSerials = [{'label':'S4','data':'123AS45DF6789'},{'label':'Plasma 1','data':'2024asdf'},{'label':'Tower 2','data':'qwerty19'},{'label':'Stack','data':'psdfer1827jus'}];
+      self.getSerials = false;
+      self.serialsLoaded = false;
+      self.getSerialData = function() {
+        if (self.getSerials) {
+          self.getSerials = false;//hide serial numbers
+        } else {
+          if (!self.serialsLoaded) {
+            //ajax in room serial numbers
+            console.log('ajax in room serial numbers');
+            self.serialsLoaded = true;
+          }
+          self.getSerials = true;
+        }
+      };
+
+      self.currentIguanaVersion = 'v12.4.9';
+      self.igunanVersions = [{'label': 'v12.5.3','data':'v12.5.3'},{'label': 'v12.5.2','data':'v12.5.2'},{'label': 'v12.4.9','data':'v12.4.9'}];
+      self.newestIguanaVersion = self.igunanVersions[0].label;
+
+      self.iguanaUpToDate = 'Current Iguana version ' + '(' + self.currentIguanaVersion + ') ';
+      self.iguanaUpToDate += (self.currentIguanaVersion === self.newestIguanaVersion?'is up to date':'is behind the latest version');
+
+      self.updateIguana = false;
+      self.updateIguanaVersion = function(newIguanaVersion){
+        //window.alert(newIguanaVersion);
+        self.currentIguanaVersion = newIguanaVersion;
+        self.iguanaUpToDate = 'Current Iguana version ' + '(' + self.currentIguanaVersion + ') is up to date';
+      };
+
+  /*room validation method/properties - end*/
+
+  /*room configuration methods/properties - start*/
       self.equipmentLists = equipmentList;
 
       self.computers = self.equipmentLists.computers;
@@ -22,7 +84,7 @@ angular.module('vactApp')
       self.preloadedConfigurations = self.equipmentLists.preloadedConfigurations;
       self.roomConfigurations = self.equipmentLists.rooms;
 
-      self.configurationTypes = [{'label':'Custom','id':'custom'},{'label':'Basic','id':'basic'},{'label':'Chameleon-Mini','id':'chameleon-mini'},{'label':'Chameleon','id':'chameleon'}]
+      self.configurationTypes = [{'label':'Custom','id':'custom'},{'label':'Basic','id':'basic'},{'label':'Chameleon-Mini','id':'chameleon-mini'},{'label':'Chameleon','id':'chameleon'}];
       self.configurationType = 'custom';
       self.roomConfiguration ='';
       self.unclassified = false;
@@ -31,11 +93,6 @@ angular.module('vactApp')
 
       self.sources = [];
       self.targets = [];
-
-/*
-      self.sources = [{'id':'vidcam_1','type':'video_camera','label':'Cam 1','target':'lcd_1'}];//to hold the equipment objects added
-      self.targets = [{'id':'lcd_1','type':'lcd','label':'LCD 1','source':'vidcam_1'},{'id':'lcd_2','type':'lcd','label':'LCD 2','source':'none'}];//to hold the equipment objects added
-*/
 
       self.computerSelected = '';
       self.displaySelected = '';
@@ -63,11 +120,9 @@ angular.module('vactApp')
 
       self.equipmentSelected = function(equipment, equipmentGroup){
         console.log('made it in equipmentSelected:'+equipment);
-        //need to find the equipment object in the existing arrays
         self.equipmentCount = 0;
         self.equipmentGroup = equipmentGroup;
         self.findEquipmentObjByReference(equipment, equipmentGroup);
-
         self.showEquipmentSpecifics = true;
       };
 
@@ -93,7 +148,6 @@ angular.module('vactApp')
             newObj = arrayToSearch[i];
           }
         }
-        //check to see if this type of equipment is already ing the source or target lists
         if(equipmentGroup === 'displays'){
           arrayToSearch = self.targets;
         }else{
@@ -125,6 +179,7 @@ angular.module('vactApp')
         self.destinationArray.push(newEquipment);
         self.addAnother = true;
       };
+
       self.addAnotherEquipment = function(){
         self.equipmentCount++;
         var newEquipment = {};
@@ -135,6 +190,7 @@ angular.module('vactApp')
         self.destinationArray.push(newEquipment);
         self.addAnother = true;
       };
+
       self.resetEquipment = function(){
         self.computerSelected = '';
         self.displaySelected = '';
@@ -155,7 +211,6 @@ angular.module('vactApp')
         self.displaySelected = '';
         self.cameraSelected = '';
         self.peripheralSelected = '';
-
       };
 
       self.loadConfiguration = function(configurationType){
@@ -177,7 +232,8 @@ angular.module('vactApp')
         }
         self.sources = preloadConfiguration.source;
         self.targets = preloadConfiguration.target;
-      }
+      };
+
       self.loadRoomConfiguration = function(room){
         var preloadConfiguration =[];
         switch(room){
@@ -191,7 +247,9 @@ angular.module('vactApp')
         self.classified = preloadConfiguration.classification.classified;
         self.spn = preloadConfiguration.classification.spn;
 
-      }
+      };
+ /*room configuration methods/properties - end*/
+
     }
   ])
 ;
