@@ -95,7 +95,7 @@ module.exports = function (grunt) {
                             iguana_port: 'TODO'
                         },
                         'INSTALLED': {
-                            'isClient':true,
+                            'isClient':false,
                             'bldg':'870',
                             'room':'123'
                         }

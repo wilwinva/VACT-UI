@@ -64,7 +64,44 @@ angular
                       return defer.promise.then(function (data) {
                         return data;
                       });
+                    }],
+                    vactRoomList: ['vactApiModel','$q', function (vactApiModel, $q) {
+                      console.log('in resolve');
+                      var defer = $q.defer();
+                      defer.resolve(vactApiModel.fetch('vactRoomList'));
+
+                      return defer.promise.then(function (data) {
+                        return data;
+                      });
+                    }],
+                    vactRoomTemps: ['vactApiModel','$q', function (vactApiModel, $q) {
+                      console.log('in resolve');
+                      var defer = $q.defer();
+                      defer.resolve(vactApiModel.fetch('vactRoomTemps'));
+
+                      return defer.promise.then(function (data) {
+                        return data;
+                      });
+                    }],
+                    vactRoomSerials: ['vactApiModel','$q', function (vactApiModel, $q) {
+                      console.log('in resolve');
+                      var defer = $q.defer();
+                      defer.resolve(vactApiModel.fetch('vactRoomSerials'));
+
+                      return defer.promise.then(function (data) {
+                        return data;
+                      });
+                    }],
+                    vactRoomIguanaVersion: ['vactApiModel','$q', function (vactApiModel, $q) {
+                      console.log('in resolve');
+                      var defer = $q.defer();
+                      defer.resolve(vactApiModel.fetch('vactRoomIguanaVersion'));
+
+                      return defer.promise.then(function (data) {
+                        return data;
+                      });
                     }]
+
                   }
                 })
           ;

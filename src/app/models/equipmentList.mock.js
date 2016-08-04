@@ -333,7 +333,6 @@ angular.module('vactApp.mocks')
                         }
                     ]
                 }
-            },
-          'activeRoom':'870/123'
+            }
         }
     );

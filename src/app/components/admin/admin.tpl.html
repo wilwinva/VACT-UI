@@ -9,16 +9,35 @@
   </div>
   <div id="validation" ng-show="adminCtrl.roomState === 'validation'">
     <div class="row roomValidation">
-      <div class="col-sm-5" ng-if="!adminCtrl.isClient">
-        <label>Select a bldg/room </label>
+      <div class="col-sm-12" ng-if="!adminCtrl.isClient">
+        <!--<label>Select a bldg/room </label>
         <select ng-model="adminCtrl.activeRoom"
-                ng-options="room.id as room.label for room in adminCtrl.validateRooms"
+                ng-options="room.label as room.label for room in adminCtrl.vactRooms"
                 ng-change="adminCtrl.openRoomSocket(adminCtrl.activeRoom);">
-        </select>
+        </select>-->
+        <span>
+          <label>Select a bldg </label>
+          <select ng-model="adminCtrl.selectedBldg"
+                  ng-options="item as item for item in adminCtrl.bldgs"
+                  ng-change="adminCtrl.getBldgRooms(adminCtrl.selectedBldg);">
+          </select>
+        </span>
+        <span ng-show="adminCtrl.selectedBldg">
+          <label>Select a room </label>
+          <select ng-model="adminCtrl.selectedRoom"
+                  ng-options="item as item for item in adminCtrl.rooms"
+                  ng-change="adminCtrl.setBldgRooms(adminCtrl.selectedRoom);">
+          </select>
+        </span>
       </div>
-      <div class="col-sm-5" ng-if="adminCtrl.isClient">
-        <label>Active room: </label>
-        <span ng-bind="adminCtrl.activeRoom">
+      <div class="col-sm-12" ng-if="adminCtrl.isClient || adminCtrl.activeRoom">
+        <span>
+          <label>Active room: </label>
+          <span ng-bind="adminCtrl.activeRoom"></span>
+        </span>
+        <span>
+          <label>Room Type: </label>
+          <span ng-bind="adminCtrl.roomType"></span>
         </span>
       </div>
     </div>

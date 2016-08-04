@@ -10,7 +10,7 @@
  * Web Socket Service
  */
 angular.module('vactApp')
-    .controller('AdminCtrl', ['vactModel', 'equipmentList', 'INSTALLED', function (vactModel, equipmentList, INSTALLED) {
+    .controller('AdminCtrl', ['vactModel', 'equipmentList', 'INSTALLED', 'vactRoomList', 'vactRoomTemps', 'vactRoomSerials', 'vactRoomIguanaVersion', function (vactModel, equipmentList, INSTALLED, vactRoomList, vactRoomTemps, vactRoomSerials, vactRoomIguanaVersion) {
       var self = this;
       self.isClient = INSTALLED.isClient;
 //      console.log('made it in adminCtrl');
@@ -24,20 +24,65 @@ angular.module('vactApp')
       };
 
   /*room validation method/properties - start*/
-      self.activeRoom = equipmentList.activeRoom;
-      self.validateRooms = [{'label':'870/123','id':'870/123'},{'label':'870/166','id':'870/166'},{'label':'870/201','id':'870/201'},{'label':'870/222','id':'885/222'},{'label':'870/334','id':'885/334'},{'label':'885/109','id':'885/109'},{'label':'885/110','id':'885/110'}];
+      self.activeRoom = '';
+      self.selectedBldg = '';
+      self.selectedRoom = '';
+      self.roomType = '';
+      self.bldgs = [];
+      self.rooms = [];
+//      self.rooms = [{'label':'870/123','bldg':'870','room':'123','type':'n/a'},{"label":"518/1026","bldg":"518","room":"1026","type":"n/a"},{"label":"700/1028","bldg":"700","room":"1028","type":"Presentation"},{"label":"701/1001","bldg":"701","room":"1001","type":"n/a"},{"label":"701/2001","bldg":"701","room":"2001","type":"Chameleon 1.0"},{"label":"702/1001","bldg":"702","room":"1001","type":"Chameleon 2.0"},{"label":"702/1029","bldg":"702","room":"1029","type":"Presentation"},{"label":"703/111","bldg":"703","room":"111","type":"Presentation"},{"label":"704/218","bldg":"704","room":"218","type":"Chameleon 2.0"},{"label":"729/203","bldg":"729","room":"203","type":"Mini-Chameleon"},{"label":"730/1205","bldg":"730","room":"1205","type":"Basic"}];
+      self.vactRooms = vactRoomList;
+
+      for(var iBldg=0;iBldg<self.vactRooms.length;iBldg++){
+        var bldg = self.vactRooms[iBldg].bldg;
+        if(self.bldgs.indexOf(bldg) < 0){
+          self.bldgs.push(bldg);
+        }
+      }
+
+      self.getBldgRooms = function(bldg){
+        //self.rooms = self.vactRooms.filter(bldg);
+        self.rooms = [];
+        for(var iBldg=0;iBldg<self.vactRooms.length;iBldg++){
+          var brObj = self.vactRooms[iBldg];
+          if(brObj.bldg === bldg){
+            self.rooms.push(brObj.room);
+          }
+        }
+      };
+      self.getRoomType = function(){
+        for(var iBldg=0;iBldg<self.vactRooms.length;iBldg++){
+          var brObj = self.vactRooms[iBldg];
+          if(brObj.label === self.activeRoom){
+            self.roomType=brObj.type;
+            break;
+          }
+        }
+      };
+      self.setBldgRooms = function(){
+        self.activeRoom = self.selectedBldg + "/" + self.selectedRoom;
+        self.getRoomType();
+        self.loadRoomIguanaVersion();
+      };
+
+
       if( self.isClient){
         self.activeRoom = INSTALLED.bldg + "/" + INSTALLED.room;
       }
 
       self.openRoomSocket = function(room){
         self.activeRoom = room;
+        window.alert(self.activeRoom);
       };
 
       if( self.isClient){
         self.openRoomSocket(self.activeRoom);
+        self.loadRoomIguanaVersion();
       }
-      self.equipmentTemps = [{'label':'S4','data':98},{'label':'Tower 1','data':102},{'label':'Tower 2','data':103},{'label':'Stack','data':110}];
+//      self.equipmentTemps = [{'label':'S4','data':98},{'label':'Tower 1','data':102},{'label':'Tower 2','data':103},{'label':'Stack','data':110}];
+
+      self.vactRoomTemps = vactRoomTemps;
+      self.equipmentTemps =  [];
       self.getTemps = false;
 
       self.getTempData = function() {
@@ -46,11 +91,23 @@ angular.module('vactApp')
         } else {
           //ajax in room equipment temps
           console.log('ajax in room equipment temps');
+          self.loadRoomTemps();
           self.getTemps = true;
         }
       };
+      self.loadRoomTemps = function(){
+        for(var iRR=0;iRR<self.vactRoomTemps.length;iRR++){
+          var vrrObj = self.vactRoomTemps[iRR];
+          if(vrrObj.room === self.activeRoom){
+            self.equipmentTemps=vrrObj.temps;
+            break;
+          }
+        }
+      };
 
-      self.equipmentSerials = [{'label':'S4','data':'123AS45DF6789'},{'label':'Plasma 1','data':'2024asdf'},{'label':'Tower 2','data':'qwerty19'},{'label':'Stack','data':'psdfer1827jus'}];
+//      self.equipmentSerials = [{'label':'S4','data':'123AS45DF6789'},{'label':'Plasma 1','data':'2024asdf'},{'label':'Tower 2','data':'qwerty19'},{'label':'Stack','data':'psdfer1827jus'}];
+      self.vactRoomSerials = vactRoomSerials;
+      self.equipmentSerials = [];
       self.getSerials = false;
       self.serialsLoaded = false;
       self.getSerialData = function() {
@@ -60,18 +117,40 @@ angular.module('vactApp')
           if (!self.serialsLoaded) {
             //ajax in room serial numbers
             console.log('ajax in room serial numbers');
+            self.loadRoomSerials();
             self.serialsLoaded = true;
           }
           self.getSerials = true;
         }
       };
+      self.loadRoomSerials = function(){
+        for(var iRS=0;iRS<self.vactRoomSerials.length;iRS++){
+          var vrsObj = self.vactRoomSerials[iRS];
+          if(vrsObj.room === self.activeRoom){
+            self.equipmentSerials=vrsObj.serials;
+            break;
+          }
+        }
+      };
 
-      self.currentIguanaVersion = 'v12.4.9';
+      self.vactRoomIguanaVersions = vactRoomIguanaVersion;
+//      self.currentIguanaVersion = 'v12.4.9';//vactRoomIguanaVersions
+      self.currentIguanaVersion = '';
+
       self.igunanVersions = [{'label': 'v12.5.3','data':'v12.5.3'},{'label': 'v12.5.2','data':'v12.5.2'},{'label': 'v12.4.9','data':'v12.4.9'}];
       self.newestIguanaVersion = self.igunanVersions[0].label;
 
-      self.iguanaUpToDate = 'Current Iguana version ' + '(' + self.currentIguanaVersion + ') ';
-      self.iguanaUpToDate += (self.currentIguanaVersion === self.newestIguanaVersion?'is up to date':'is behind the latest version');
+      self.loadRoomIguanaVersion = function(){
+        for(var iRIV=0;iRIV<self.vactRoomIguanaVersions.length;iRIV++){
+          var vrivObj = self.vactRoomIguanaVersions[iRIV];
+          if(vrivObj.room === self.activeRoom){
+            self.currentIguanaVersion=vrivObj.igunanVersion;
+            self.iguanaUpToDate = 'Current Iguana version ' + '(' + self.currentIguanaVersion + ') ';
+            self.iguanaUpToDate += (self.currentIguanaVersion === self.newestIguanaVersion?'is up to date':'is behind the latest version');
+            break;
+          }
+        }
+      };
 
       self.updateIguana = false;
       self.updateIguanaVersion = function(newIguanaVersion){
