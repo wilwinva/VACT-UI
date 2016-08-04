@@ -31,15 +31,12 @@ module.exports = function (grunt) {
         dist: 'dist'
     };
 
-    var sassFiles = {
-        'src/styles/main.css': '<%= config.src %>/styles/sass/main.scss'
-    };
-
     var buildTasks = [
         'ngtemplates',
         'wiredep',
         'useminPrepare',
         'concurrent:dist',
+        'concat:sass',
         'sass',
         'concat',
         'ngAnnotate',
@@ -55,6 +52,7 @@ module.exports = function (grunt) {
         'jshint:all',
         'wiredep',
         'concurrent:server',
+        'concat:sass',
         'sass',
         'ngtemplates',
         'replace:serve',
@@ -325,15 +323,18 @@ module.exports = function (grunt) {
                 }
             },
 
+            concat: {
+                sass: {
+                    src: ['<%= config.src %>/styles/sass/*.scss', '!<%= config.src %>/styles/dist.scss'],
+                    dest: '<%= config.src %>/styles/sass/dist.scss'
+                }
+            },
+
             // Compiles Sass to CSS and generates necessary files if requested
             sass: {
                 dist: {
-                    files: sassFiles,
-                    options: {
-                        //includePaths: [
-                        //   './bower_components/bootstrap-sass/assets/stylesheets'
-                        //],
-                        outputStyle: 'compressed',
+                    files: {
+                        'src/styles/dist.css': '<%= config.src %>/styles/sass/dist.scss'
                     }
                 }
             },
