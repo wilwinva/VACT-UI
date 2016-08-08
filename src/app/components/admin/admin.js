@@ -21,6 +21,9 @@ angular.module('vactApp')
         self.sources = [];
         self.targets = [];
         self.roomConfiguration = '';
+        self.activeRoom = '';
+        self.selectedBldg = '';
+        self.selectedRoom = '';
       };
 
   /*room validation method/properties - start*/
@@ -171,8 +174,8 @@ angular.module('vactApp')
       self.preloadedConfigurations = self.equipmentLists.preloadedConfigurations;
       self.roomConfigurations = self.equipmentLists.rooms;
 
-      self.configurationTypes = [{'label':'Custom','id':'custom'},{'label':'Basic','id':'basic'},{'label':'Chameleon-Mini','id':'chameleon-mini'},{'label':'Chameleon','id':'chameleon'}];
-      self.configurationType = 'custom';
+      self.configurationTypes = [{'label':'','id':''},{'label':'Custom','id':'custom'},{'label':'Basic','id':'basic'},{'label':'Chameleon-Mini','id':'chameleon-mini'},{'label':'Chameleon','id':'chameleon'}];
+      self.configurationType = '';
       self.roomConfiguration ='';
       self.unclassified = false;
       self.classified = false;
@@ -321,9 +324,13 @@ angular.module('vactApp')
         self.targets = preloadConfiguration.target;
       };
 
-      self.loadRoomConfiguration = function(room){
+      self.loadRoomConfiguration = function(){
+        if(self.selectedBldg.length==0 || self.selectedRoom.length==0){
+          return;
+        }
+        self.activeRoom = self.selectedBldg + "/" + self.selectedRoom;
         var preloadConfiguration =[];
-        switch(room){
+        switch(self.activeRoom){
           case '870/123':
             preloadConfiguration = self.roomConfigurations["870/123"];
             break;
