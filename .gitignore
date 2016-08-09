@@ -11,8 +11,8 @@ dist/
 docs/
 src/app/config.js
 src/app/templates.js
-src/styles/dist.css
-src/styles/sass/dist.scss
+src/styles/main.css
+src/styles/sass/main.scss
 .tmp
 
 # PhpStorm IDE settings and configuration
