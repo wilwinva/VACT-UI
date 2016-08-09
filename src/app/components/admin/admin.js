@@ -78,6 +78,25 @@ angular.module('vactApp')
         window.alert(self.activeRoom);
       };
 
+      self.vactRoomIguanaVersions = vactRoomIguanaVersion;
+//      self.currentIguanaVersion = 'v12.4.9';//vactRoomIguanaVersions
+      self.currentIguanaVersion = '';
+
+      self.igunanVersions = [{'label': 'v12.5.3','data':'v12.5.3'},{'label': 'v12.5.2','data':'v12.5.2'},{'label': 'v12.4.9','data':'v12.4.9'}];
+      self.newestIguanaVersion = self.igunanVersions[0].label;
+
+      self.loadRoomIguanaVersion = function(){
+        for(var iRIV=0;iRIV<self.vactRoomIguanaVersions.length;iRIV++){
+          var vrivObj = self.vactRoomIguanaVersions[iRIV];
+          if(vrivObj.room === self.activeRoom){
+            self.currentIguanaVersion=vrivObj.igunanVersion;
+            self.iguanaUpToDate = 'Current Iguana version ' + '(' + self.currentIguanaVersion + ') ';
+            self.iguanaUpToDate += (self.currentIguanaVersion === self.newestIguanaVersion?'is up to date':'is behind the latest version');
+            break;
+          }
+        }
+      };
+
       if( self.isClient){
         self.openRoomSocket(self.activeRoom);
         self.loadRoomIguanaVersion();
@@ -136,24 +155,6 @@ angular.module('vactApp')
         }
       };
 
-      self.vactRoomIguanaVersions = vactRoomIguanaVersion;
-//      self.currentIguanaVersion = 'v12.4.9';//vactRoomIguanaVersions
-      self.currentIguanaVersion = '';
-
-      self.igunanVersions = [{'label': 'v12.5.3','data':'v12.5.3'},{'label': 'v12.5.2','data':'v12.5.2'},{'label': 'v12.4.9','data':'v12.4.9'}];
-      self.newestIguanaVersion = self.igunanVersions[0].label;
-
-      self.loadRoomIguanaVersion = function(){
-        for(var iRIV=0;iRIV<self.vactRoomIguanaVersions.length;iRIV++){
-          var vrivObj = self.vactRoomIguanaVersions[iRIV];
-          if(vrivObj.room === self.activeRoom){
-            self.currentIguanaVersion=vrivObj.igunanVersion;
-            self.iguanaUpToDate = 'Current Iguana version ' + '(' + self.currentIguanaVersion + ') ';
-            self.iguanaUpToDate += (self.currentIguanaVersion === self.newestIguanaVersion?'is up to date':'is behind the latest version');
-            break;
-          }
-        }
-      };
 
       self.updateIguana = false;
       self.updateIguanaVersion = function(newIguanaVersion){
@@ -325,7 +326,7 @@ angular.module('vactApp')
       };
 
       self.loadRoomConfiguration = function(){
-        if(self.selectedBldg.length==0 || self.selectedRoom.length==0){
+        if(self.selectedBldg.length===0 || self.selectedRoom.length===0){
           return;
         }
         self.activeRoom = self.selectedBldg + "/" + self.selectedRoom;

@@ -139,7 +139,7 @@
         </div>
       </div>
     </div>
-    <div class="roomConfiguration" ng-show="adminCtrl.activeRoom && adminCtrl.configurationType.length != 0">
+    <div class="roomConfiguration" ng-show="adminCtrl.activeRoom || adminCtrl.configurationType.length != 0">
       <div class="row location room-classifier">
         <div class="col-sm-12">
           <span>
@@ -219,7 +219,7 @@
                     ng-change="roomCtrl.targetSelected(source)">
               <option value="">None</option>
             </select>
-            <input type="button" value="Modify" ng-click=""/>
+            <input type="button" value="Delete" ng-click=""/>
           </span>
         </div>
         <div class="col-sm-12" id="targetEquipment">
@@ -233,7 +233,7 @@
                     ng-change="adminCtrl.sourceSelected(target)">
               <option value="">None</option>
             </select>
-            <input type="button" value="Modify" ng-click=""/>
+            <input type="button" value="Delete" ng-click=""/>
           </span>
         </div>
       </div>
