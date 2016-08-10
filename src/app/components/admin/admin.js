@@ -15,7 +15,14 @@ angular.module('vactApp')
       self.isClient = INSTALLED.isClient;
 //      console.log('made it in adminCtrl');
       self.roomState = '';
+      self.activeRoom = '';
+      self.selectedBldg = '';
+      self.selectedRoom = '';
+      self.roomType = '';
+      self.bldgs = [];
+      self.rooms = [];
       self.roomStateOptions = [{'label':'Validate a room','id':'validation'},{'label':'Create a room configuration','id':'createConfiguration'},{'label':'Manage a room configuration','id':'manageConfiguration'}];
+
       self.loadRoomState = function(roomState){
         self.roomState = roomState;
         self.sources = [];
@@ -24,15 +31,19 @@ angular.module('vactApp')
         self.activeRoom = '';
         self.selectedBldg = '';
         self.selectedRoom = '';
+        if( self.isClient){
+          self.activeRoom = INSTALLED.bldg + "/" + INSTALLED.room;
+          self.openRoomSocket(self.activeRoom);
+          self.loadRoomIguanaVersion();
+          self.getRoomType();
+          self.loadRoomConfiguration();
+        }else{
+          self.activeRoom = '';
+        }
+
       };
 
   /*room validation method/properties - start*/
-      self.activeRoom = '';
-      self.selectedBldg = '';
-      self.selectedRoom = '';
-      self.roomType = '';
-      self.bldgs = [];
-      self.rooms = [];
 //      self.rooms = [{'label':'870/123','bldg':'870','room':'123','type':'n/a'},{"label":"518/1026","bldg":"518","room":"1026","type":"n/a"},{"label":"700/1028","bldg":"700","room":"1028","type":"Presentation"},{"label":"701/1001","bldg":"701","room":"1001","type":"n/a"},{"label":"701/2001","bldg":"701","room":"2001","type":"Chameleon 1.0"},{"label":"702/1001","bldg":"702","room":"1001","type":"Chameleon 2.0"},{"label":"702/1029","bldg":"702","room":"1029","type":"Presentation"},{"label":"703/111","bldg":"703","room":"111","type":"Presentation"},{"label":"704/218","bldg":"704","room":"218","type":"Chameleon 2.0"},{"label":"729/203","bldg":"729","room":"203","type":"Mini-Chameleon"},{"label":"730/1205","bldg":"730","room":"1205","type":"Basic"}];
       self.vactRooms = vactRoomList;
 
@@ -69,9 +80,6 @@ angular.module('vactApp')
       };
 
 
-      if( self.isClient){
-        self.activeRoom = INSTALLED.bldg + "/" + INSTALLED.room;
-      }
 
       self.openRoomSocket = function(room){
         self.activeRoom = room;
@@ -326,10 +334,12 @@ angular.module('vactApp')
       };
 
       self.loadRoomConfiguration = function(){
-        if(self.selectedBldg.length===0 || self.selectedRoom.length===0){
+/*        if(self.selectedBldg.length===0 || self.selectedRoom.length===0){
           return;
+        }*/
+        if(self.activeRoom === '') {
+          self.activeRoom = self.selectedBldg + "/" + self.selectedRoom;
         }
-        self.activeRoom = self.selectedBldg + "/" + self.selectedRoom;
         var preloadConfiguration =[];
         switch(self.activeRoom){
           case '870/123':
