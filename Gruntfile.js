@@ -31,7 +31,7 @@ module.exports = function (grunt) {
         dist: 'dist'
     };
     var sassFiles = {
-        'src/styles/main.css': '<%= config.src %>/styles/sass/main.scss'
+        '.tmp/styles/main.css': '<%= config.src %>/styles/sass/main.scss'
     };
     var buildTasks = [
         'ngtemplates',
@@ -56,6 +56,7 @@ module.exports = function (grunt) {
         'concurrent:server',
         /*'concat:sass',*/
         'sass',
+        'copy:dist',
         'ngtemplates',
         'replace:serve',
         'websocket',
@@ -145,15 +146,19 @@ module.exports = function (grunt) {
                     files: ['test/spec/{,*/}*spec.js'],
                     tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma']
                 },
-                source: {
+                index: {
+                    files: ['<%= config.src %>/**/index.html'],
+                    tasks: ['replace:serve']
+                },
+               gruntfile: {
+                    files: ['Gruntfile.js']
+                },
+                css:{
                     files: ['<%= config.src %>/styles/sass/*.scss'],
                     tasks: ['sass'],
                     options: {
-                        livereload: true, // needed to run LiveReload
+                        livereload: true // needed to run LiveReload
                     }
-                },
-                gruntfile: {
-                    files: ['Gruntfile.js']
                 },
                 livereload: {
                     options: {
@@ -162,8 +167,10 @@ module.exports = function (grunt) {
                     files: [
                         '<%= config.src %>/**/*.html',
                         '<%= config.src %>/**/*.tpl.html',
+                        '<%= config.src %>/styles/**/*.scss',
                         '.tmp/styles/{,*/}*.css',
-                        '<%= config.src %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                        '<%= config.src %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+                        '.tmp/*.html'
                     ]
                 }
             },
@@ -450,7 +457,7 @@ module.exports = function (grunt) {
                         prefix: 'app/components/'
                     },
                     cwd: 'src/app/components',
-                    src: '**/**.html',
+                    src: '**/**.tpl.html',
                     dest: 'src/app/templates.js'
                 }
             },
@@ -564,8 +571,8 @@ module.exports = function (grunt) {
                 },
                 styles: {
                     expand: true,
-                    cwd: '<%= config.src %>/styles',
-                    dest: '.tmp/styles/',
+                    cwd: '.tmp/styles',
+                    dest: 'dist/styles/',
                     src: '{,*/}*.css'
                 }
             },
