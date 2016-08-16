@@ -19,7 +19,7 @@ module.exports = function (grunt) {
         ngconstant: 'grunt-ng-constant',
         protractor: 'grunt-protractor-runner',
         protractor_webdriver: 'grunt-protractor-webdriver',
-        exec: 'grunt-exec',
+        jsdoc: 'grunt-jsdoc',
         replace: 'grunt-replace'
 
     });
@@ -47,7 +47,8 @@ module.exports = function (grunt) {
         'uglify',
         'filerev',
         'usemin',
-        'replace:dist'
+        'replace:dist',
+        'jsdoc'
     ];
 
     var serveTasks = [
@@ -359,7 +360,7 @@ module.exports = function (grunt) {
                         //includePaths: [
                         //   './bower_components/bootstrap-sass/assets/stylesheets'
                         //],
-                        outputStyle: 'compressed',
+                        outputStyle: 'compressed'
                     }
                 }
             },
@@ -621,11 +622,20 @@ module.exports = function (grunt) {
             },
 
             // Generate Documentation -- Note this is picky in windows with the direction of the slashes
-            exec: {
+/*            exec: {
                 document: {
-                    cmd: 'node_modules\\.bin\\jsdoc.cmd -c conf.json -d docs -r src\\app -R README.md'
+                    cmd: 'node_modules\\.bin\\jsdoc.cmd -c conf.json -d docs -r -R README.md'
+                }
+            }*/
+            jsdoc : {
+                dist : {
+                    src: ['src/app/**/*.js'],
+                    options: {
+                        destination: 'docs'
+                    }
                 }
             }
+
 
         }
     )

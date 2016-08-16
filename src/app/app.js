@@ -9,6 +9,8 @@
  *
  * Main module of the application.
  */
+'use strict';
+
 angular
     .module('vactApp', [
         'ngAnimate',

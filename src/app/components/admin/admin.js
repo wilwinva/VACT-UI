@@ -9,11 +9,17 @@
  *
  * Web Socket Service
  */
+'use strict';
+
 angular.module('vactApp')
     .controller('AdminCtrl', ['vactModel', 'equipmentList', 'INSTALLED', 'vactRoomList', 'vactRoomTemps', 'vactRoomSerials', 'vactRoomIguanaVersion', function (vactModel, equipmentList, INSTALLED, vactRoomList, vactRoomTemps, vactRoomSerials, vactRoomIguanaVersion) {
+/*      console.log('made it in adminCtrl');*/
       var self = this;
+
+    /**
+     * Initalize local variables
+     */
       self.isClient = INSTALLED.isClient;
-//      console.log('made it in adminCtrl');
       self.roomState = '';
       self.activeRoom = '';
       self.selectedBldg = '';
@@ -22,29 +28,6 @@ angular.module('vactApp')
       self.bldgs = [];
       self.rooms = [];
       self.roomStateOptions = [{'label':'Validate a room','id':'validation'},{'label':'Create a room configuration','id':'createConfiguration'},{'label':'Manage a room configuration','id':'manageConfiguration'}];
-
-      self.loadRoomState = function(roomState){
-        self.roomState = roomState;
-        self.sources = [];
-        self.targets = [];
-        self.roomConfiguration = '';
-        self.activeRoom = '';
-        self.selectedBldg = '';
-        self.selectedRoom = '';
-        if( self.isClient){
-          self.activeRoom = INSTALLED.bldg + "/" + INSTALLED.room;
-          self.openRoomSocket(self.activeRoom);
-          self.loadRoomIguanaVersion();
-          self.getRoomType();
-          self.loadRoomConfiguration();
-        }else{
-          self.activeRoom = '';
-        }
-
-      };
-
-  /*room validation method/properties - start*/
-//      self.rooms = [{'label':'870/123','bldg':'870','room':'123','type':'n/a'},{"label":"518/1026","bldg":"518","room":"1026","type":"n/a"},{"label":"700/1028","bldg":"700","room":"1028","type":"Presentation"},{"label":"701/1001","bldg":"701","room":"1001","type":"n/a"},{"label":"701/2001","bldg":"701","room":"2001","type":"Chameleon 1.0"},{"label":"702/1001","bldg":"702","room":"1001","type":"Chameleon 2.0"},{"label":"702/1029","bldg":"702","room":"1029","type":"Presentation"},{"label":"703/111","bldg":"703","room":"111","type":"Presentation"},{"label":"704/218","bldg":"704","room":"218","type":"Chameleon 2.0"},{"label":"729/203","bldg":"729","room":"203","type":"Mini-Chameleon"},{"label":"730/1205","bldg":"730","room":"1205","type":"Basic"}];
       self.vactRooms = vactRoomList;
 
       for(var iBldg=0;iBldg<self.vactRooms.length;iBldg++){
@@ -54,126 +37,23 @@ angular.module('vactApp')
         }
       }
 
-      self.getBldgRooms = function(bldg){
-        //self.rooms = self.vactRooms.filter(bldg);
-        self.rooms = [];
-        for(var iBldg=0;iBldg<self.vactRooms.length;iBldg++){
-          var brObj = self.vactRooms[iBldg];
-          if(brObj.bldg === bldg){
-            self.rooms.push(brObj.room);
-          }
-        }
-      };
-      self.getRoomType = function(){
-        for(var iBldg=0;iBldg<self.vactRooms.length;iBldg++){
-          var brObj = self.vactRooms[iBldg];
-          if(brObj.label === self.activeRoom){
-            self.roomType=brObj.type;
-            break;
-          }
-        }
-      };
-      self.setBldgRooms = function(){
-        self.activeRoom = self.selectedBldg + "/" + self.selectedRoom;
-        self.getRoomType();
-        self.loadRoomIguanaVersion();
-      };
-
-
-
-      self.openRoomSocket = function(room){
-        self.activeRoom = room;
-        window.alert(self.activeRoom);
-      };
-
+/** room validation variables */
       self.vactRoomIguanaVersions = vactRoomIguanaVersion;
-//      self.currentIguanaVersion = 'v12.4.9';//vactRoomIguanaVersions
       self.currentIguanaVersion = '';
-
       self.igunanVersions = [{'label': 'v12.5.3','data':'v12.5.3'},{'label': 'v12.5.2','data':'v12.5.2'},{'label': 'v12.4.9','data':'v12.4.9'}];
       self.newestIguanaVersion = self.igunanVersions[0].label;
-
-      self.loadRoomIguanaVersion = function(){
-        for(var iRIV=0;iRIV<self.vactRoomIguanaVersions.length;iRIV++){
-          var vrivObj = self.vactRoomIguanaVersions[iRIV];
-          if(vrivObj.room === self.activeRoom){
-            self.currentIguanaVersion=vrivObj.igunanVersion;
-            self.iguanaUpToDate = 'Current Iguana version ' + '(' + self.currentIguanaVersion + ') ';
-            self.iguanaUpToDate += (self.currentIguanaVersion === self.newestIguanaVersion?'is up to date':'is behind the latest version');
-            break;
-          }
-        }
-      };
-
-      if( self.isClient){
-        self.openRoomSocket(self.activeRoom);
-        self.loadRoomIguanaVersion();
-      }
-//      self.equipmentTemps = [{'label':'S4','data':98},{'label':'Tower 1','data':102},{'label':'Tower 2','data':103},{'label':'Stack','data':110}];
+      self.updateIguana = false;
 
       self.vactRoomTemps = vactRoomTemps;
       self.equipmentTemps =  [];
       self.getTemps = false;
 
-      self.getTempData = function() {
-        if (self.getTemps) {
-          self.getTemps = false;//hide temps
-        } else {
-          //ajax in room equipment temps
-          console.log('ajax in room equipment temps');
-          self.loadRoomTemps();
-          self.getTemps = true;
-        }
-      };
-      self.loadRoomTemps = function(){
-        for(var iRR=0;iRR<self.vactRoomTemps.length;iRR++){
-          var vrrObj = self.vactRoomTemps[iRR];
-          if(vrrObj.room === self.activeRoom){
-            self.equipmentTemps=vrrObj.temps;
-            break;
-          }
-        }
-      };
-
-//      self.equipmentSerials = [{'label':'S4','data':'123AS45DF6789'},{'label':'Plasma 1','data':'2024asdf'},{'label':'Tower 2','data':'qwerty19'},{'label':'Stack','data':'psdfer1827jus'}];
       self.vactRoomSerials = vactRoomSerials;
       self.equipmentSerials = [];
       self.getSerials = false;
       self.serialsLoaded = false;
-      self.getSerialData = function() {
-        if (self.getSerials) {
-          self.getSerials = false;//hide serial numbers
-        } else {
-          if (!self.serialsLoaded) {
-            //ajax in room serial numbers
-            console.log('ajax in room serial numbers');
-            self.loadRoomSerials();
-            self.serialsLoaded = true;
-          }
-          self.getSerials = true;
-        }
-      };
-      self.loadRoomSerials = function(){
-        for(var iRS=0;iRS<self.vactRoomSerials.length;iRS++){
-          var vrsObj = self.vactRoomSerials[iRS];
-          if(vrsObj.room === self.activeRoom){
-            self.equipmentSerials=vrsObj.serials;
-            break;
-          }
-        }
-      };
 
-
-      self.updateIguana = false;
-      self.updateIguanaVersion = function(newIguanaVersion){
-        //window.alert(newIguanaVersion);
-        self.currentIguanaVersion = newIguanaVersion;
-        self.iguanaUpToDate = 'Current Iguana version ' + '(' + self.currentIguanaVersion + ') is up to date';
-      };
-
-  /*room validation method/properties - end*/
-
-  /*room configuration methods/properties - start*/
+/** room configuration variables */
       self.equipmentLists = equipmentList;
 
       self.computers = self.equipmentLists.computers;
@@ -217,16 +97,218 @@ angular.module('vactApp')
       self.equipmentGroup = '';
       self.tempObj = {};
 
+
+    /**
+     * Load current room state
+     * @constructor
+     * @param {string} roomState - The roomState what you want to do to a room (validate, manage configuration)
+     */
+      self.loadRoomState = function(roomState){
+        self.roomState = roomState;
+        self.sources = [];
+        self.targets = [];
+        self.roomConfiguration = '';
+        self.activeRoom = '';
+        self.selectedBldg = '';
+        self.selectedRoom = '';
+        if( self.isClient){
+          self.activeRoom = INSTALLED.bldg + "/" + INSTALLED.room;
+          self.openRoomSocket(self.activeRoom);
+          self.loadRoomIguanaVersion();
+          self.getRoomType();
+          self.loadRoomConfiguration();
+        }else{
+          self.activeRoom = '';
+        }
+
+      };
+
+  /*room validation method/properties - start*/
+
+      /**
+       * Load list of rooms base on bldg
+       * @constructor
+       * @param {string} bldg
+       */
+      self.getBldgRooms = function(bldg){
+        //self.rooms = self.vactRooms.filter(bldg);
+        self.rooms = [];
+        for(var iBldg=0;iBldg<self.vactRooms.length;iBldg++){
+          var brObj = self.vactRooms[iBldg];
+          if(brObj.bldg === bldg){
+            self.rooms.push(brObj.room);
+          }
+        }
+      };
+
+      /**
+       * get room configuration type based on self.activeRoom
+       * @constructor
+       */
+      self.getRoomType = function(){
+        for(var iBldg=0;iBldg<self.vactRooms.length;iBldg++){
+          var brObj = self.vactRooms[iBldg];
+          if(brObj.label === self.activeRoom){
+            self.roomType=brObj.type;
+            break;
+          }
+        }
+      };
+
+      /**
+       * set self.activeRoom, fires self.getRoomType and self.loadRoomIguanaVersion methods
+       * self.activeRoom is a bld/room combo used as a unique identifier
+       * @constructor
+       */
+      self.setBldgRooms = function(){
+        self.activeRoom = self.selectedBldg + "/" + self.selectedRoom;
+        self.getRoomType();
+        self.loadRoomIguanaVersion();
+      };
+
+      /**
+       * open a socket based on room provided
+       * @constructor
+       * @param {string} room - this is really a bld/room combo used as a unique identifier
+       */
+      self.openRoomSocket = function(room){
+        self.activeRoom = room;
+        /*window.alert(self.activeRoom);*/
+      };
+
+      /**
+       * set Iguana Version based on self.activeRoom
+       * set self.iguanaUpToDate text field to show where current iguana version is in relationship to list of versions
+       * @constructor
+       */
+      self.loadRoomIguanaVersion = function(){
+        for(var iRIV=0;iRIV<self.vactRoomIguanaVersions.length;iRIV++){
+          var vrivObj = self.vactRoomIguanaVersions[iRIV];
+          if(vrivObj.room === self.activeRoom){
+            self.currentIguanaVersion=vrivObj.igunanVersion;
+            self.iguanaUpToDate = 'Current Iguana version ' + '(' + self.currentIguanaVersion + ') ';
+            self.iguanaUpToDate += (self.currentIguanaVersion === self.newestIguanaVersion?'is up to date':'is behind the latest version');
+            break;
+          }
+        }
+      };
+
+      /**
+       * update Iguana Version for self.activeRoom
+       * set self.iguanaUpToDate text field to show where current iguana version is in relationship to list of versions
+       * @constructor
+       */
+      self.updateIguanaVersion = function(newIguanaVersion){
+        //window.alert(newIguanaVersion);
+        self.currentIguanaVersion = newIguanaVersion;
+        self.iguanaUpToDate = 'Current Iguana version ' + '(' + self.currentIguanaVersion + ') ';
+        self.iguanaUpToDate += (self.currentIguanaVersion === self.newestIguanaVersion?'is up to date':'is behind the latest version');
+      };
+
+      /**
+       * button action to show/hide equipment temps
+       * if temps are visible reload new temps - need to repull temps each time clicked
+       * @constructor
+       */
+      self.getTempData = function() {
+        if (self.getTemps) {
+          /*hide temps*/
+          self.getTemps = false;
+        } else {
+          /*ajax in room equipment temps*/
+          console.log('ajax in room equipment temps');
+          self.loadRoomTemps();
+          self.getTemps = true;
+        }
+      };
+
+      /**
+       * self.loadRoomTemps
+       * build list of current equipment temps for self.activeRoom
+       * @constructor
+       */
+      self.loadRoomTemps = function(){
+        for(var iRR=0;iRR<self.vactRoomTemps.length;iRR++){
+          var vrrObj = self.vactRoomTemps[iRR];
+          if(vrrObj.room === self.activeRoom){
+            self.equipmentTemps=vrrObj.temps;
+            break;
+          }
+        }
+      };
+
+      /**
+       * button action to show/hide equipment serial numbers
+       * if temps are NOT visible get serial numbers - only need to pull once
+       * @constructor
+       */
+      self.getSerialData = function() {
+        if (self.getSerials) {
+          self.getSerials = false;//hide serial numbers
+        } else {
+          if (!self.serialsLoaded) {
+            //ajax in room serial numbers
+            console.log('ajax in room serial numbers');
+            self.loadRoomSerials();
+            self.serialsLoaded = true;
+          }
+          self.getSerials = true;
+        }
+      };
+
+      /**
+       * self.loadRoomSerials
+       * build list of current equipment serial numbers for self.activeRoom
+       * @constructor
+       */
+      self.loadRoomSerials = function(){
+        for(var iRS=0;iRS<self.vactRoomSerials.length;iRS++){
+          var vrsObj = self.vactRoomSerials[iRS];
+          if(vrsObj.room === self.activeRoom){
+            self.equipmentSerials=vrsObj.serials;
+            break;
+          }
+        }
+      };
+
+      /**
+       * determines if this is a local or remote access
+       * @constructor
+       */
+      if( self.isClient){
+        self.openRoomSocket(self.activeRoom);
+        self.loadRoomIguanaVersion();
+      }
+  /*room validation methods/properties - end*/
+
+  /*room configuration methods/properties - start*/
+
+      /**
+       * radio button selection that displays which dropdown list of equipment via self.findEquipmentObjByReference
+       * build list of current equipment serial numbers for self.activeRoom
+       * @constructor
+       * @param {string} equipment
+       * @param {string} equipmentGroup
+       */
       self.equipmentSelected = function(equipment, equipmentGroup){
-        console.log('made it in equipmentSelected:'+equipment);
+/*        console.log('made it in equipmentSelected:'+equipment);*/
         self.equipmentCount = 0;
         self.equipmentGroup = equipmentGroup;
         self.findEquipmentObjByReference(equipment, equipmentGroup);
         self.showEquipmentSpecifics = true;
       };
 
+      /**
+       * build list of current equipment serial numbers for self.activeRoom
+       * @constructor
+       * @param {string} equipment
+       * @param {string} equipmentGroup
+       */
       self.findEquipmentObjByReference = function(equipmentType, equipmentGroup){
         var arrayToSearch = [];
+        /**
+         * set arrayToSearch based on equipmentGroup
+         */
         switch(equipmentGroup){
           case 'computers':
             arrayToSearch = self.computers;
@@ -241,12 +323,19 @@ angular.module('vactApp')
             arrayToSearch = self.peripherals;
             break;
         }
+
+        /**
+         * load newObj
+         */
         var newObj = {};
         for(var i=0;i<arrayToSearch.length;i++){
           if(arrayToSearch[i].type === equipmentType){
             newObj = arrayToSearch[i];
           }
         }
+        /**
+         * decide if equipmentGroup is a target or source
+         */
         if(equipmentGroup === 'displays'){
           arrayToSearch = self.targets;
         }else{
@@ -254,6 +343,9 @@ angular.module('vactApp')
         }
         self.destinationArray = arrayToSearch;
 
+        /**
+         * set count of equiptment type - used in label and id
+         */
         var increment = 1;
         if(arrayToSearch.length > 0){
           for(var a=0;a<arrayToSearch.length;a++){
@@ -262,6 +354,9 @@ angular.module('vactApp')
             }
           }
         }
+        /**
+         * set variables used to DISPLAY equipment stats
+         */
         self.tempObj = newObj;
         self.equipmentCount = increment;
         self.equipmentType = newObj.type;
@@ -269,6 +364,10 @@ angular.module('vactApp')
         self.equipmentId = newObj.id + '_' + increment;
       };
 
+      /**
+       * save equipment to destinationArray (source or target)
+       * @constructor
+       */
       self.saveEquipment = function(){
         var newEquipment = {};
         newEquipment.type = self.equipmentType;
@@ -279,6 +378,10 @@ angular.module('vactApp')
         self.addAnother = true;
       };
 
+      /**
+       * add another of same equipment to destinationArray (source or target) but increment by 1
+       * @constructor
+       */
       self.addAnotherEquipment = function(){
         self.equipmentCount++;
         var newEquipment = {};
@@ -290,6 +393,10 @@ angular.module('vactApp')
         self.addAnother = true;
       };
 
+      /**
+       * clear  equipment variables
+       * @constructor
+       */
       self.resetEquipment = function(){
         self.computerSelected = '';
         self.displaySelected = '';
@@ -312,6 +419,11 @@ angular.module('vactApp')
         self.peripheralSelected = '';
       };
 
+      /**
+       * load source and target equipment arrays based on configurationType from dropdown
+       * @constructor
+       * @param {string} configurationType
+       */
       self.loadConfiguration = function(configurationType){
         var preloadConfiguration = [];
         switch(configurationType){
@@ -333,6 +445,11 @@ angular.module('vactApp')
         self.targets = preloadConfiguration.target;
       };
 
+      /**
+       * load source and target equipment arrays based on saved room configuration
+       * @constructor
+       * @param {string} configurationType
+       */
       self.loadRoomConfiguration = function(){
 /*        if(self.selectedBldg.length===0 || self.selectedRoom.length===0){
           return;
