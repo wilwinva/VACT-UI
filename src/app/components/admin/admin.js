@@ -3,11 +3,10 @@
 /**
  * @ngdoc overview
  * @project VACT
- * @name WebSocketService
- * @description
- * # WebSocketService
+ * @name AdminCtrl
+ * @description methods and properties for the admin page - create/modify/save room configurations AND validate room stats (Iguana Version, equipment temps/serial numbers)
  *
- * Web Socket Service
+ * Admin control methods
  */
 'use strict';
 
@@ -17,7 +16,7 @@ angular.module('vactApp')
       var self = this;
 
     /**
-     * Initalize local variables
+     * @classdesc - Initalize local variables
      */
       self.isClient = INSTALLED.isClient;
       self.roomState = '';
@@ -37,7 +36,7 @@ angular.module('vactApp')
         }
       }
 
-/** room validation variables */
+/** @classdesc - room validation variables */
       self.vactRoomIguanaVersions = vactRoomIguanaVersion;
       self.currentIguanaVersion = '';
       self.igunanVersions = [{'label': 'v12.5.3','data':'v12.5.3'},{'label': 'v12.5.2','data':'v12.5.2'},{'label': 'v12.4.9','data':'v12.4.9'}];
@@ -53,7 +52,7 @@ angular.module('vactApp')
       self.getSerials = false;
       self.serialsLoaded = false;
 
-/** room configuration variables */
+/** @classdesc - room configuration variables */
       self.equipmentLists = equipmentList;
 
       self.computers = self.equipmentLists.computers;
@@ -99,7 +98,7 @@ angular.module('vactApp')
 
 
     /**
-     * Load current room state
+     * @classdesc - Load current room state
      * @constructor
      * @param {string} roomState - The roomState what you want to do to a room (validate, manage configuration)
      */
